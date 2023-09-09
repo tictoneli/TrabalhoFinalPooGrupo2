@@ -50,10 +50,11 @@ public class MenuCliente {
 	
 	public static int alterar(String msg) {
 		System.out.println(msg);
-		ListaCliente.localizarCliente(1);
 		
-		
-		
+		Cliente c = ListaCliente.localizarCliente(1);
+		if (!(c == null)) {
+		ClienteDML.alterarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), c);
+		}
 		
 		return opcoes(menu());
 	}

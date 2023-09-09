@@ -7,7 +7,8 @@ import javax.swing.filechooser.FileSystemView;
 import com.serratec.dao.CreateDAO;
 import com.serratec.menu.MenuPrincipal;
 import com.serratec.arquivo.ArquivoTxt;
-import com.serratec.ListaClasse.ListaCliente;
+import com.serratec.ListaClasse.*;
+
 
 
 
@@ -22,6 +23,9 @@ public class Connect {
 	public static final String SFILE = "DadosConexao.ini";
 	
 	public static ListaCliente clientes;
+	public static ListaEmpresa empresas;
+	public static ListaPedido pedidos;
+	public static ListaProduto produtos;
 	
 	public static void dadosEntrada() {
 		
@@ -29,7 +33,12 @@ public class Connect {
 			if (CreateDAO.createBD(dadosCon.getBanco(), dadosCon.getSchema(), dadosCon)) {
 				con = new Conexao(dadosCon); 
 				con.conect();
+				
 				clientes = new ListaCliente(con, dadosCon.getSchema());
+				empresas = new ListaEmpresa(con, dadosCon.getSchema());
+				pedidos = new ListaPedido(con, dadosCon.getSchema());
+				produtos = new ListaProduto(con, dadosCon.getSchema());
+				
 				MenuPrincipal.opcoes(MenuPrincipal.menuPrincipal());
 				
 			} else {

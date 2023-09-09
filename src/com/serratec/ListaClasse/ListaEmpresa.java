@@ -3,20 +3,23 @@ package com.serratec.ListaClasse;
 import com.serratec.classes.Empresa;
 import com.serratec.conexao.Conexao;
 import com.serratec.dao.EmpresaDAO;
+import com.serratec.dml.EmpresaDML;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ListaEmpresa {
 	private static Conexao con;
 	private static String schema;
 
-	ArrayList<Empresa> Empresas = new ArrayList<>();
+	static ArrayList<Empresa> empresas = new ArrayList<>();
 
 	public ListaEmpresa(Conexao con, String schema) {
 		this.con = con;
 		this.schema = schema;
-		this.carregarListaEmpresas();
+		carregarListaEmpresas();
 	}
 
 	private Empresa dadosEmpresa(ResultSet tabela) {
@@ -39,13 +42,13 @@ public class ListaEmpresa {
 	private void carregarListaEmpresas() {
 		EmpresaDAO edao = new EmpresaDAO(con, schema);
 		ResultSet tabela = edao.carregarEmpresa();
-		this.Empresas.clear();
+		this.empresas.clear();
 
 		try {
 			tabela.beforeFirst();
 
 			while (tabela.next()) {
-				this.Empresas.add(this.dadosEmpresa(tabela));
+				this.empresas.add(this.dadosEmpresa(tabela));
 			}
 
 			tabela.close();
@@ -55,4 +58,63 @@ public class ListaEmpresa {
 		}
 
 	}
+
+	public void imprimirEmpresas() {
+		System.out.println("\nLista de empresas: ");
+		System.out.println("\n===================");
+		System.out.println("\nNome\t\t| CNPJ\t\t| email");
+		System.out.println("\n===================");
+		
+		for (Empresa e : empresas){
+			System.out.println (e.getNome() + "\t\t" + e.getCpf_cnpj()+ "\t\t"+ e.getEmail());
+		}
+		
+	}
+
+	public static Empresa localizarEmpresa(int opt) {
+		Empresa localizado = null;
+		int idempresa;
+		String cnpjempresa;
+		Scanner input = new Scanner(System.in);
+			
+		switch(opt)	{
+		
+		case 1: {
+				idempresa = input.nextInt();	
+				for (Empresa e : empresas) {
+					if (e.getIdEmpresa()== idempresa) {
+						localizado = e;
+						break;}
+						System.out.println("Empresa não localizada, retornando ao menu."); input.next(); break;
+				}
+		}
+			
+		case 2: {
+				cnpjempresa = input.nextLine();
+				for (Empresa e : empresas) {
+					if (e.getCpf_cnpj().equals(cnpjempresa)) {
+						localizado = e;
+						break;}
+						
+				} //System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
+		}
+			}return localizado;
+	}
+
+	public static boolean excluirEmpresa(Empresa e) {
+	
+		
+		boolean excluido = false;
+		for (Empresa cl : empresas) {
+			if(cl.getIdEmpresa() == e.getIdEmpresa()) {
+				empresas.remove(empresas.lastIndexOf(cl));
+				EmpresaDML.excluirEmpresa(con, schema, e);
+				excluido = true;
+				break;
+			}
+					
+		}
+		return excluido;
+	}
+
 }

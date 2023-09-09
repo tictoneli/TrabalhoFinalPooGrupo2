@@ -21,7 +21,7 @@ public class Cliente extends Parceiro {
 		this.idCliente = idCliente;
 	}
 
-	
+	@SuppressWarnings("resource")
 	public static Cliente cadastrarCliente() {
 		
 		Cliente c = new Cliente();
@@ -33,23 +33,23 @@ public class Cliente extends Parceiro {
 		
 		Util.br();
 		
-		System.out.println("Informe o nome:");
+		System.out.println("Informe o nome do cliente:");
 		String s = in.nextLine();
 		c.setNome(s);
 	
-		System.out.println("Informe o CPF:");
+		System.out.println("Informe o CPF do cliente:");
 		s = in.nextLine();
 		c.setCpf_cnpj(s);
 		
-		System.out.println("Informe o endereco: ");
+		System.out.println("Informe o endereco do cliente: ");
 		s = in.nextLine();
 		c.setEndereco(s);
 		
-		System.out.println("Informe o telefone:");
+		System.out.println("Informe o telefone do cliente:");
 		s = in.nextLine();
 		c.setTelefone(s);
 		
-		System.out.println("Informe o email:");
+		System.out.println("Informe o email do cliente:");
 		s = in.nextLine();
 		c.setEmail(s);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

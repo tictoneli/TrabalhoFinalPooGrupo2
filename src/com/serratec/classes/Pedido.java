@@ -5,15 +5,15 @@ import java.util.List;
 public class Pedido {
 	
 	private long idPedido;
-	private long cdPeido;
+	private long cdPedido;
 	private Cliente cliente;
 	private List<Produto> produtos;
 	private Empresa empresa;
 	
-	public Pedido(long idPedido, long cdPeido,
+	public Pedido(long idPedido, long cdPedido,
 		Cliente cliente, List<Produto> produtos, Empresa empresa) {
 		this.idPedido = idPedido;
-		this.cdPeido = cdPeido;
+		this.cdPedido = cdPedido;
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.empresa = empresa;
@@ -33,12 +33,12 @@ protected void setIdPedido(long idPedido) {
 
 	
 public long getCdPeido() {
-		return cdPeido;
+		return cdPedido;
 	}
 
 	
 protected void setCdPeido(long cdPeido) {
-		this.cdPeido = cdPeido;
+		this.cdPedido = cdPeido;
 	}
 
 	

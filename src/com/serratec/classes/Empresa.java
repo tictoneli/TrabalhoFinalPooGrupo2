@@ -33,19 +33,19 @@ public class Empresa extends Parceiro {
 		String s = in.nextLine();
 		e.setNome(s);
 
-		System.out.println("Informe o CNPJ:");
+		System.out.println("Informe o CNPJ da empresa:");
 		s = in.nextLine();
 		e.setCpf_cnpj(s);
 
-		System.out.println("Informe o endereço: ");
+		System.out.println("Informe o endereço da empresa: ");
 		s = in.nextLine();
 		e.setEndereco(s);
 
-		System.out.println("Informe o telefone:");
+		System.out.println("Informe o telefone da empresa:");
 		s = in.nextLine();
 		e.setTelefone(s);
 
-		System.out.println("Informe o email:");
+		System.out.println("Informe o email da empresa:");
 		s = in.nextLine();
 		e.setEmail(s);
 
