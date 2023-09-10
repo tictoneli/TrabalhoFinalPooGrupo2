@@ -24,8 +24,8 @@ public class Connect {
 	
 	public static ListaCliente clientes;
 	public static ListaEmpresa empresas;
-	public static ListaPedido pedidos;
-	public static ListaProduto produtos;
+	//public static ListaPedido pedidos;
+	//public static ListaProduto produtos;
 	
 	public static void dadosEntrada() {
 		
@@ -36,8 +36,8 @@ public class Connect {
 				
 				clientes = new ListaCliente(con, dadosCon.getSchema());
 				empresas = new ListaEmpresa(con, dadosCon.getSchema());
-				pedidos = new ListaPedido(con, dadosCon.getSchema());
-				produtos = new ListaProduto(con, dadosCon.getSchema());
+				//pedidos = new ListaPedido(con, dadosCon.getSchema());
+				//produtos = new ListaProduto(con, dadosCon.getSchema());
 				
 				MenuPrincipal.opcoes(MenuPrincipal.menuPrincipal());
 				

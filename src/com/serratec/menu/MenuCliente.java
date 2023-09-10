@@ -25,7 +25,7 @@ public class MenuCliente {
 		
 		return Util.validarInteiro("Informe uma opcao: ");
 	}
-	
+	// ENCONTRAR MODO DE ATUALIZAR LISTAS AO CADASTRAR/ALTERAR/EXCLUIR SEM PRECISAR REINICIAR APLICATIVO
 	public static int opcoes(int opcao) {
 			
 		switch (opcao) {

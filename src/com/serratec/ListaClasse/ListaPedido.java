@@ -24,13 +24,13 @@ public class ListaPedido {
 		Pedido p = new Pedido(0, 0, null, null, null);
 
 		try {
-			e.setNome(tabela.getString("nome"));
-			e.setCpf_cnpj("cpf");
-			e.setEndereco(tabela.getString("endereco"));
-			e.setTelefone("telefone");
-			e.setEmail("email");
-			e.setIdEmpresa(tabela.getInt("idEmpresa"));
-			return e;
+			p.setNome(tabela.getString("nome"));
+			p.setCpf_cnpj("cpf");
+			p.setEndereco(tabela.getString("endereco"));
+			p.setTelefone("telefone");
+			p.setEmail("email");
+			p.setIdEmpresa(tabela.getInt("idEmpresa"));
+			return p;
 		} catch (SQLException var4) {
 			var4.printStackTrace();
 			return null;
