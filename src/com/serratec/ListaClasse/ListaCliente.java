@@ -22,7 +22,7 @@ public class ListaCliente {
 		this.schema = schema;
 		
 		carregarListaClientes();
-	}
+	} // talvez criar uma nova lista pra atualizar e tentar descobrir como apagar a ultima? ok ok
 
 	private Cliente dadosCliente(ResultSet tabela) {
 		Cliente c = new Cliente();
@@ -84,26 +84,26 @@ public class ListaCliente {
 			
 		switch(opt)	{
 		
-		case 1: {
-				idcliente = input.nextInt();	
-				for (Cliente c : clientes) {
-					if (c.getIdCliente()== idcliente) {
-						localizado = c;
-						break;}
-						System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
-				}
-		}
+			case 1: {
+					idcliente = input.nextInt();	
+					for (Cliente c : clientes) {
+						if (c.getIdCliente()== idcliente) {
+							localizado = c;
+							break;}
+							System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
+					}
+			}
 			
-		case 2: {
-				cpfcliente = input.nextLine();
-				for (Cliente c : clientes) {
-					if (c.getCpf_cnpj().equals(cpfcliente)) {
-						localizado = c;
-						break;}
-						
-				} //System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
-		}
-			}return localizado;
+			case 2: {
+					cpfcliente = input.nextLine();
+					for (Cliente c : clientes) {
+						if (c.getCpf_cnpj().equals(cpfcliente)) {
+							localizado = c;
+							break;}
+							
+					} //System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
+			}
+		}return localizado;
 	}
 	
 	public static boolean excluirCliente(Cliente c) {
@@ -117,11 +117,8 @@ public class ListaCliente {
 				excluido = true;
 				break;
 			}
-					
 		}
 		return excluido;
 	}
-	
-	
 }
 

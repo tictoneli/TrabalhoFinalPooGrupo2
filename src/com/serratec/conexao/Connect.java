@@ -9,11 +9,6 @@ import com.serratec.menu.MenuPrincipal;
 import com.serratec.arquivo.ArquivoTxt;
 import com.serratec.ListaClasse.*;
 
-
-
-
-
-
 public class Connect {
 	
 	public static Conexao con;
