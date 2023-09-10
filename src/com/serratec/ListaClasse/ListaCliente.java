@@ -43,17 +43,17 @@ public class ListaCliente {
 		}
 	}
 	
-	private void carregarListaClientes() {
+	public void carregarListaClientes() {
 		ClienteDAO cdao = new ClienteDAO(con, schema);
 		
 		ResultSet tabela = cdao.carregarClientes();
-		this.clientes.clear();
+		ListaCliente.clientes.clear();
 		
 		try {
 			tabela.beforeFirst();
 			
 			while (tabela.next()) {							
-				this.clientes.add(dadosCliente(tabela));				
+				ListaCliente.clientes.add(dadosCliente(tabela));				
 			}
 			
 			tabela.close();

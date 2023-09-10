@@ -43,8 +43,11 @@ public class MenuCliente {
 	}
 		
 	public static int cadastrar(String msg) {
+		
 		System.out.println(msg);
+		
 		ClienteDML.gravarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), Cliente.cadastrarCliente());
+		Connect.clientes.carregarListaClientes();
 		return opcoes(menu());
 	}
 	
@@ -54,6 +57,7 @@ public class MenuCliente {
 		Cliente c = ListaCliente.localizarCliente(1);
 		if (!(c == null)) {
 		ClienteDML.alterarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), c);
+		Connect.clientes.carregarListaClientes();
 		}
 		
 		return opcoes(menu());
@@ -64,7 +68,9 @@ public class MenuCliente {
 		if(	ListaCliente.excluirCliente(ListaCliente.localizarCliente(2))){
 			
 			System.out.println("Cliente excluído com sucesso!");
+			Connect.clientes.carregarListaClientes();
 		}else{ System.out.println("Cliente não excluído!");
+		
 		};
 		
 		return opcoes(menu());
