@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 import com.serratec.ListaClasse.ListaCliente;
 import com.serratec.ListaClasse.ListaEmpresa;
+import com.serratec.classes.Cliente;
 import com.serratec.classes.Empresa;
 import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
+import com.serratec.dml.ClienteDML;
 import com.serratec.dml.EmpresaDML;
 
 public class MenuEmpresa {
@@ -47,13 +49,18 @@ public class MenuEmpresa {
 
 	public static int cadastrar(String msg) {
 		System.out.println(msg);
+		
 		EmpresaDML.gravarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), Empresa.cadastrarEmpresa());
+		Connect.empresas.carregarListaEmpresas();
 		return opcoes(menu());
 	}
 
 	public static int alterar(String msg) {
 		System.out.println(msg);
-		ListaEmpresa.localizarEmpresa(1);
+		Empresa e = ListaEmpresa.localizarEmpresa(1);
+		if (!(e == null)) {
+		EmpresaDML.alterarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), e);
+		Connect.empresas.carregarListaEmpresas();}
 		return opcoes(menu());
 	}
 
@@ -69,6 +76,8 @@ public class MenuEmpresa {
 	}
 
 	public static int listar() {
+		
+		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		Connect.empresas.imprimirEmpresas();
 		input.next();

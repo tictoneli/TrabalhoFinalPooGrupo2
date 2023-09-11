@@ -33,6 +33,7 @@ public class Cliente extends Parceiro {
 		
 		Util.br();
 		
+		
 		System.out.println("Informe o nome do cliente:");
 		String s = in.nextLine();
 		c.setNome(s);
@@ -52,17 +53,18 @@ public class Cliente extends Parceiro {
 		System.out.println("Informe o email do cliente:");
 		s = in.nextLine();
 		c.setEmail(s);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		System.out.println("Informe a data de nascimento (dd/mm/aaaa)");
-		try {
-			Date ld = sdf.parse(in.nextLine());
-			c.setDtnasc(sdf.format(ld));
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
 		
+		System.out.println("Informe a data de nascimento (dd/mm/aaaa)");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		while (c.getDtnasc() == null) {
+			try {
+				Date ld = sdf.parse(in.nextLine());
+				c.setDtnasc(sdf.format(ld));
+			} catch (ParseException e) {
+				
+				System.err.println("Data inválida - por favor, insira o formato dd/mm/aaaa");
+			}
+		}
 		return c;
 	}
-	
 }

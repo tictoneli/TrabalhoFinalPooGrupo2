@@ -27,10 +27,10 @@ public class ListaEmpresa {
 
 		try {
 			e.setNome(tabela.getString("nome"));
-			e.setCpf_cnpj("cpf");
+			e.setCpf_cnpj(tabela.getString("cnpj"));
 			e.setEndereco(tabela.getString("endereco"));
-			e.setTelefone("telefone");
-			e.setEmail("email");
+			e.setTelefone(tabela.getString("telefone"));
+			e.setEmail(tabela.getString("email"));
 			e.setIdEmpresa(tabela.getInt("idEmpresa"));
 			return e;
 		} catch (SQLException var4) {
@@ -39,16 +39,16 @@ public class ListaEmpresa {
 		}
 	}
 
-	private void carregarListaEmpresas() {
+	public void carregarListaEmpresas() {
 		EmpresaDAO edao = new EmpresaDAO(con, schema);
 		ResultSet tabela = edao.carregarEmpresa();
-		this.empresas.clear();
+		ListaEmpresa.empresas.clear();
 
 		try {
 			tabela.beforeFirst();
 
 			while (tabela.next()) {
-				this.empresas.add(this.dadosEmpresa(tabela));
+				ListaEmpresa.empresas.add(this.dadosEmpresa(tabela));
 			}
 
 			tabela.close();

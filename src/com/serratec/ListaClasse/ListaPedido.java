@@ -40,13 +40,13 @@ public class ListaPedido {
 	private void carregarListaPedidos() {
 		PedidoDAO edao = new PedidoDAO(con, schema);
 		ResultSet tabela = edao.carregarEmpresa();
-		this.pedidos.clear();
+		ListaPedido.pedidos.clear();
 
 		try {
 			tabela.beforeFirst();
 
 			while (tabela.next()) {
-				this.pedidos.add(this.dadosPedido(tabela));
+				ListaPedido.pedidos.add(this.dadosPedido(tabela));
 			}
 
 			tabela.close();

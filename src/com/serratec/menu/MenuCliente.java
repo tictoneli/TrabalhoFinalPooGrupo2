@@ -56,6 +56,7 @@ public class MenuCliente {
 		
 		Cliente c = ListaCliente.localizarCliente(1);
 		if (!(c == null)) {
+		
 		ClienteDML.alterarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), c);
 		Connect.clientes.carregarListaClientes();
 		}
@@ -68,7 +69,6 @@ public class MenuCliente {
 		if(	ListaCliente.excluirCliente(ListaCliente.localizarCliente(2))){
 			
 			System.out.println("Cliente excluído com sucesso!");
-			Connect.clientes.carregarListaClientes();
 		}else{ System.out.println("Cliente não excluído!");
 		
 		};
@@ -77,6 +77,7 @@ public class MenuCliente {
 	}
 	
 	public static int listar() {
+		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		Connect.clientes.imprimirClientes();
 		input.next();

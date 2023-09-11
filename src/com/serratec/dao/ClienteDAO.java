@@ -131,7 +131,7 @@ public class ClienteDAO {
 		String sql = "select * from " + this.schema + ".cliente order by idcliente";
 		
 		tabela = conexao.query(sql);
-			
+
 		return tabela;
 	}
 }

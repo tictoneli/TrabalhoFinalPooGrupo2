@@ -18,11 +18,11 @@ public class ListaCliente {
 	static ArrayList<Cliente> clientes = new ArrayList<>();
 	
 	public ListaCliente(Conexao con, String schema) {
-		this.con = con;
-		this.schema = schema;
+		ListaCliente.con = con;
+		ListaCliente.schema = schema;
 		
 		carregarListaClientes();
-	} // talvez criar uma nova lista pra atualizar e tentar descobrir como apagar a ultima? ok ok
+	}
 
 	private Cliente dadosCliente(ResultSet tabela) {
 		Cliente c = new Cliente();
@@ -85,13 +85,13 @@ public class ListaCliente {
 		switch(opt)	{
 		
 			case 1: {
-					idcliente = input.nextInt();	
+					idcliente = input.nextInt();
 					for (Cliente c : clientes) {
 						if (c.getIdCliente()== idcliente) {
 							localizado = c;
 							break;}
-							System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
-					}
+							
+					}System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
 			}
 			
 			case 2: {
@@ -121,4 +121,3 @@ public class ListaCliente {
 		return excluido;
 	}
 }
-

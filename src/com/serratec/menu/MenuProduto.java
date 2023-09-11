@@ -74,7 +74,6 @@ public class MenuProduto {
 	    return null;
 	}
 
-
 	public static int excluir() {
 		return menu();
 	}

@@ -21,7 +21,6 @@ public class Connect {
 	public static ListaEmpresa empresas;
 	
 	
-	
 	//public static ListaPedido pedidos;
 	//public static ListaProduto produtos;
 	
