@@ -11,9 +11,9 @@ public class Produto implements Calculos {
 	private long cdProduto;
 	private String nome;
 	private String descricao;
-	private Double valorUnit;
-	private Double valorVenda;
-	private Double porcento;
+	private double valorUnit;
+	private double valorVenda;
+	private double porcento;
 
 	public long getIdProduto() {
 		return idProduto;
@@ -91,7 +91,7 @@ public class Produto implements Calculos {
 		p.setNome(s);
 
 		Util.escrever("Informe o código:");
-		Integer i = in.nextInt();
+		int i = in.nextInt();
 		in.nextLine();
 		p.setCdProduto(i);
 
@@ -100,7 +100,7 @@ public class Produto implements Calculos {
 		p.setDescricao(s);
 
 		Util.escrever("Informe o valor unitário:");
-		Double d = in.nextDouble();
+		double d = in.nextDouble();
 		in.nextLine();
 		p.setValorUnit(d);
 
@@ -152,7 +152,7 @@ public class Produto implements Calculos {
 		if (descricao != null && !descricao.trim().isEmpty()) {
 			produtoExistente.setDescricao(descricao);
 		}
-
+		
 		Util.escrever("Alterar o valor unitário:");
 		num = in.nextLine();
 		if (!num.isEmpty()) {
