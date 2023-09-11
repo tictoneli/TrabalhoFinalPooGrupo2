@@ -114,7 +114,7 @@ public class Produto implements Calculos {
 		return p;
 	}
 
-	public static int localizarProduto(String msg) {
+	public static int localizarProduto() {
 
 		System.out.println(Util.LINHA);
 		System.out.println("Alteração de produto");

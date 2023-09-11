@@ -88,7 +88,8 @@ public class ListaCliente {
 					localizado = c;
 					break;
 					}
-			} return localizado;
+			} 
+			return localizado;
 		}
 		
 	public static boolean excluirCliente(Cliente c) {

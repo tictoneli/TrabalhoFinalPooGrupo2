@@ -4,11 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
+import com.serratec.classes.Cliente;
 import com.serratec.classes.Produto;
 import com.serratec.conexao.Conexao;
 import com.serratec.constantes.Util;
 import com.serratec.dao.ProdutoDAO;
+import com.serratec.dml.ClienteDML;
+import com.serratec.dml.ProdutoDML;
 
 public class ListaProduto {
 
@@ -68,29 +72,35 @@ public class ListaProduto {
 		ListaProduto.produtos.add(prod);
 	}
 
-	public Produto localizarProduto(int idProduto) {
+	public static Produto localizarProduto() {
 		Produto localizado = null;
+		Long cdprod;
+		@SuppressWarnings("resource")
+		Scanner input = new Scanner(System.in);
+			cdprod = input.nextLong();
 
 		for (Produto prod : produtos) {
-			if (prod.getIdProduto() == idProduto) {
+			if (prod.getCdProduto() == cdprod) {
 				localizado = prod;
 				break;
 			}
 		}
-
 		return localizado;
 	}
 
-	public void excluirProduto(Produto prodExcluir) {
+	public boolean excluirProduto(Produto prodExcluir) {
 
-		Iterator<Produto> pExcluir = produtos.iterator();
-
-		while (pExcluir.hasNext()) {
-			Produto prod = pExcluir.next();
-			if (prod.getIdProduto() == prodExcluir.getIdProduto()) {
-				pExcluir.remove();
+		
+		boolean excluido = false;
+		for (Produto pd : produtos) {
+			if(pd.getIdProduto() == prodExcluir.getIdProduto()) {
+				produtos.remove(produtos.lastIndexOf(pd));
+				ProdutoDML.excluirProduto(con, schema, prodExcluir);
+				excluido = true;
+				break;
 			}
 		}
+		return excluido;
 	}
 
 	public static void imprimirProdutos() {

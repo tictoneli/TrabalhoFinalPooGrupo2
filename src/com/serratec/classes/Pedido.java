@@ -1,50 +1,98 @@
 package com.serratec.classes;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import com.serratec.constantes.Util;
 
 public class Pedido {
-	
+
 	private long idPedido;
 	private long cdPedido;
-	private int qtProduto;
+	private LocalDate dtPedido;
 	private Cliente cliente;
-	private List<Produto> produtos;
+	private ProdutoPedido produtos;
 	private Empresa empresa;
+
 	public long getIdPedido() {
 		return idPedido;
 	}
+
 	public void setIdPedido(long idPedido) {
 		this.idPedido = idPedido;
 	}
+
 	public long getCdPedido() {
 		return cdPedido;
 	}
+
 	public void setCdPedido(long cdPedido) {
 		this.cdPedido = cdPedido;
 	}
-	public int getQtProduto() {
-		return qtProduto;
+
+	public LocalDate getDtPedido() {
+		return dtPedido;
 	}
-	public void setQtProduto(int qtProduto) {
-		this.qtProduto = qtProduto;
+
+	public void setDtPedido(LocalDate dtPedido) {
+		this.dtPedido = dtPedido;
 	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public List<Produto> getProdutos() {
+
+	public ProdutoPedido getProdutos() {
 		return produtos;
 	}
-	public void setProdutos(List<Produto> produtos) {
+
+	public void setProdutos(ProdutoPedido produtos) {
 		this.produtos = produtos;
 	}
+
 	public Empresa getEmpresa() {
 		return empresa;
 	}
+
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-	
-}
+
+	public static Pedido cadastrarPedido() {
+		Pedido p = new Pedido();
+
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+
+		System.out.println(Util.LINHA);
+		Util.escrever("Pedido:");
+		System.out.println(Util.LINHA);
+
+		Util.br();
+
+		Util.escrever("Informe o nÃºmero do pedido:");
+		int i = in.nextInt();
+		in.nextLine();
+		p.setCdPedido(i);
+
+		Util.escrever("Informe o cpf do Cliente:");
+		String cpf = in.nextLine();
+		Cliente cliente = new Cliente();
+		cliente.setCpf_cnpj(cpf);
+		p.setCliente(cliente);
+
+		Util.escrever("Informe o nome da empresa:");
+		String nome = in.nextLine();
+		Empresa empresa = new Empresa();
+		empresa.setNome(nome);
+		p.setEmpresa(empresa);
+
+		p.produtos.AdicionarProdutos();
+
+		p.dtPedido = LocalDate.now();
+
+		return p;

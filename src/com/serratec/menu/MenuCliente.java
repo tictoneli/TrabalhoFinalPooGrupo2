@@ -67,8 +67,8 @@ public class MenuCliente {
 	public static int excluir(String msg) {
 		System.out.println(msg);
 		if(	ListaCliente.excluirCliente(ListaCliente.localizarCliente())){
-			
 			System.out.println("Cliente excluído com sucesso!");
+			
 		}else{ System.out.println("Cliente não encontrado, retornando ao menu."); }
 		
 		return opcoes(menu());
