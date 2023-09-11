@@ -3,6 +3,7 @@ package com.serratec.classes;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import com.serratec.ListaClasse.ListaCliente;
 import com.serratec.constantes.Util;
 
 public class Pedido {
@@ -69,20 +70,22 @@ public class Pedido {
 		Scanner in = new Scanner(System.in);
 
 		System.out.println(Util.LINHA);
-		Util.escrever("Pedido:");
+		Util.escrever("Cadastro de novo pedido: ");
 		System.out.println(Util.LINHA);
 
 		Util.br();
 
-		Util.escrever("Informe o nÃºmero do pedido:");
+		Util.escrever("Informe o número do pedido:");
 		int i = in.nextInt();
 		in.nextLine();
 		p.setCdPedido(i);
 
 		Util.escrever("Informe o cpf do Cliente:");
 		String cpf = in.nextLine();
-		Cliente cliente = new Cliente();
-		cliente.setCpf_cnpj(cpf);
+		Cliente cliente = ListaCliente.localizarCliente();
+
+		//cliente.setCpf_cnpj(cpf);
+
 		p.setCliente(cliente);
 
 		Util.escrever("Informe o nome da empresa:");
@@ -94,5 +97,7 @@ public class Pedido {
 		p.produtos.AdicionarProdutos();
 
 		p.dtPedido = LocalDate.now();
-
+		
 		return p;
+	}
+}

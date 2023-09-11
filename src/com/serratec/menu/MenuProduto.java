@@ -12,7 +12,6 @@ import com.serratec.dml.ProdutoDML;
 
 public class MenuProduto {
 
-	public static ListaProduto produtos = new ListaProduto(Connect.getCon(), Connect.dadosCon.getSchema());
 
 	public static int menu() {
 
@@ -45,15 +44,17 @@ public class MenuProduto {
 			break;
 		default:
 			Util.escrever("Opcao inválida");
+			Util.aperteEnter();
+			return opcoes(menu());
 		}
 		return opcao;
 	}
 
 	public static void cadastrar() {
+		
 		Produto produto = Produto.cadastrarProduto();
 		ProdutoDML.gravarProduto(Connect.getCon(), Connect.dadosCon.getSchema(), produto);
-		produtos.adicionarProdutoLista(produto);
-		
+		Connect.produtos.adicionarProdutoLista(produto);
 		opcoes(menu());
 	}
 
@@ -66,17 +67,17 @@ public class MenuProduto {
 			Produto.alterarProduto(p);
 			ProdutoDML.alterarProduto(Connect.getCon(), Connect.dadosCon.getSchema(), p);
 		}
-		else System.out.println("Produto não encontrado!");
+		else System.out.println("Produto não encontrado!");Util.aperteEnter();
 		opcoes(menu());
 	}
 	
 	public static void excluir(String msg) {
 		
 		System.out.println(msg);
-		if	(produtos.excluirProduto(ListaProduto.localizarProduto())) {
+		if	(Connect.produtos.excluirProduto(ListaProduto.localizarProduto())) {
 			System.out.println("Produto excluído com sucesso!");
-		
-		}else {System.out.println("Produto não encontrado, retornando ao menu."); }
+			Util.aperteEnter();
+		}else {System.out.println("Produto não encontrado, retornando ao menu.");Util.aperteEnter(); }
 		
 		
 		opcoes(menu());
@@ -86,7 +87,7 @@ public class MenuProduto {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		ListaProduto.imprimirProdutos();
-		input.next();
+		Util.aperteEnter();
 		return opcoes(menu());
 	}
 }

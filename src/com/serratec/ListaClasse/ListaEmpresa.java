@@ -1,6 +1,7 @@
 package com.serratec.ListaClasse;
 
 import com.serratec.classes.Empresa;
+import com.serratec.classes.Produto;
 import com.serratec.conexao.Conexao;
 import com.serratec.dao.EmpresaDAO;
 import com.serratec.dml.EmpresaDML;
@@ -102,4 +103,7 @@ public class ListaEmpresa {
 		return excluido;
 	}
 
+	public void adicionarEmpresaLista(Empresa e) {
+		ListaEmpresa.empresas.add(e);
+	}
 }

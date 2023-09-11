@@ -1,5 +1,8 @@
 package com.serratec.classes;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public abstract class Parceiro {
 
 	private String nome;
@@ -7,7 +10,7 @@ public abstract class Parceiro {
 	private String telefone;
 	private String email;
 	private String endereco;
-	private String dtnasc;
+	private LocalDate dtnasc;
 	
 	public String getNome() {
 		return nome;
@@ -39,11 +42,11 @@ public abstract class Parceiro {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public String getDtnasc() {
+	public LocalDate getDtnasc() {
 		return dtnasc;
 	}
-	public void setDtnasc(String dtnasc) {
-		this.dtnasc = dtnasc;
+	public void setDtnasc(LocalDate localDate) {
+		this.dtnasc = localDate;
 	}
 	
 }

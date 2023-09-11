@@ -43,18 +43,22 @@ public class MenuPedido {
 
 	public static int cadastrar() {
 		EmpresaDML.gravarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), Empresa.cadastrarEmpresa());
-		return menu();
+		Util.aperteEnter();
+		return opcoes(menu());
 	}
 
 	public static int alterar() {
-		return menu();
+		Util.aperteEnter();
+		return opcoes(menu());
 	}
 
 	public static int excluir() {
-		return menu();
+		Util.aperteEnter();
+		return opcoes(menu());
 	}
 
 	public static int listar() {
-		return menu();
+		Util.aperteEnter();
+		return opcoes(menu());
 	}
 }

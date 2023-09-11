@@ -78,5 +78,12 @@ public class Util {
 
 		return numero;
 	}
+	
+	public static void aperteEnter(){
+	        System.out.println("Aperte ENTER para continuar: ");
+	        @SuppressWarnings("resource")
+			Scanner s = new Scanner(System.in);
+	        s.nextLine();
+	}
 
 }

@@ -11,6 +11,7 @@ public class ProdutoPedido {
 
 		private int quantidade;
 
+		@SuppressWarnings("unused")
 		public int getQuantidade() {
 			return quantidade;
 		}

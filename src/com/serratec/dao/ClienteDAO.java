@@ -1,5 +1,6 @@
 package com.serratec.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -73,7 +74,7 @@ public class ClienteDAO {
 			pAlteracao.setString(3, cliente.getEndereco());
 			pAlteracao.setString(4, cliente.getTelefone());
 			pAlteracao.setString(5, cliente.getEmail());
-			pAlteracao.setString(6, cliente.getDtnasc());
+			pInclusao.setDate(6, Date.valueOf(cliente.getDtnasc()));
 			pAlteracao.setInt(7, cliente.getIdCliente());
 			
 			return pAlteracao.executeUpdate();
@@ -96,7 +97,7 @@ public class ClienteDAO {
 			pInclusao.setString(3, cliente.getEndereco());
 			pInclusao.setString(4, cliente.getTelefone());
 			pInclusao.setString(5, cliente.getEmail());
-			pInclusao.setString(6, cliente.getDtnasc());
+			pInclusao.setDate(6, Date.valueOf(cliente.getDtnasc()));
 			
 			return pInclusao.executeUpdate();
 		} catch (Exception e) {

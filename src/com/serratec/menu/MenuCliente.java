@@ -1,9 +1,12 @@
 package com.serratec.menu;
 
 import com.serratec.classes.Cliente;
+import com.serratec.classes.Empresa;
 import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
 import com.serratec.dml.ClienteDML;
+import com.serratec.dml.EmpresaDML;
+
 import java.util.Scanner;
 import com.serratec.ListaClasse.ListaCliente;
 
@@ -28,7 +31,7 @@ public class MenuCliente {
 	public static int opcoes(int opcao) {
 			
 		switch (opcao) {
-			case 1: cadastrar("Cadastro de cliente: "); break;
+			case 1: cadastrar(); break;
 			case 2: alterar("Alteração de cliente - insira o CPF do cliente a ser alterado: "); break;
 			case 3: excluir("Exclusão de cliente - insira o CPF do cliente a ser excluido: "); break;
 			case 4: listar(); break;
@@ -37,16 +40,18 @@ public class MenuCliente {
 				return MenuPrincipal.opcoes(opcaoMenuPrincipal);
 			case 6: Util.escrever("Sistema Finalizado!"); break;
 			default: Util.escrever("Opcao invalida");
+			Util.aperteEnter();
+			return opcoes(menu());
 		}
 		return opcao;
 	}
 		
-	public static int cadastrar(String msg) {
+	public static int cadastrar() {
 		
-		System.out.println(msg);
-		
-		ClienteDML.gravarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), Cliente.cadastrarCliente());
-		Connect.clientes.carregarListaClientes();
+		Cliente c = Cliente.cadastrarCliente();
+		ClienteDML.gravarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), c);
+		Connect.clientes.adicionarClienteLista(c);
+		Util.aperteEnter();
 		return opcoes(menu());
 	}
 	
@@ -60,7 +65,7 @@ public class MenuCliente {
 		ClienteDML.alterarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), c);
 		
 		}else {System.out.println("Cliente não encontrado, retornando ao menu."); }
-		
+		Util.aperteEnter();
 		return opcoes(menu());
 	}
 	
@@ -70,15 +75,15 @@ public class MenuCliente {
 			System.out.println("Cliente excluído com sucesso!");
 			
 		}else{ System.out.println("Cliente não encontrado, retornando ao menu."); }
-		
+		Util.aperteEnter();
 		return opcoes(menu());
 	}
 	
 	public static int listar() {
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
+		
 		Connect.clientes.imprimirClientes();
-		input.next();
+		Util.aperteEnter();
 		return opcoes(menu());
+		
 	}
 }

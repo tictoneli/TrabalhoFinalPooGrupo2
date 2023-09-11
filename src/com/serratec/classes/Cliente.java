@@ -2,10 +2,15 @@
 package com.serratec.classes;
 
 import java.util.Scanner;
+
+import javax.swing.text.DateFormatter;
+
 import com.serratec.constantes.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 
 public class Cliente extends Parceiro {
@@ -52,15 +57,7 @@ public class Cliente extends Parceiro {
 		s = in.nextLine();
 		c.setEmail(s);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		System.out.println("Informe a data de nascimento (dd/mm/aaaa)");
-		try {
-			Date ld = sdf.parse(in.nextLine());
-			c.setDtnasc(sdf.format(ld));
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
+		c.setDtnasc((Util.validarData("Informe a data de nascimento do cliente : ")));
 		
 		return c;
 	}
@@ -106,18 +103,8 @@ public class Cliente extends Parceiro {
 				c.setEndereco(end);
 			}
 		
-		Util.escrever("Alterar a data de nascimento ou pressione ENTER para manter original::");
-		String dtnasc = in.nextLine();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			if (dtnasc != null && !dtnasc.trim().isEmpty()) {
-				try {
-					Date ld = sdf.parse(in.nextLine());
-					c.setDtnasc(sdf.format(ld));
-				} catch (ParseException e) {
-					
-					System.err.println("Data inválida - por favor, insira o formato dd/mm/aaaa");
-				}
-			}
+		c.setDtnasc(Util.validarData("Alterar a data de nascimento ou pressione ENTER para manter original::"));
+		
 		return c;
 	}
 }

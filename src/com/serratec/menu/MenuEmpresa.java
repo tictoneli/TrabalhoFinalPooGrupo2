@@ -31,7 +31,7 @@ public class MenuEmpresa {
 	public static int opcoes(int opcao) {
 
 		switch (opcao) {
-		case 1: cadastrar("Cadastro de empresa: "); break;
+		case 1: cadastrar(); break;
 		case 2: alterar("Alteração de empresa - insira o CNPJ da empresa a ser alterada: "); break;
 		case 3: excluir("Exclusão de empresa - insira o CNPJ da empresa a ser excluida: "); break;
 		case 4: listar(); break;
@@ -43,13 +43,17 @@ public class MenuEmpresa {
 			break;
 		default:
 			Util.escrever("Opcao invalida");
+			Util.aperteEnter();
+			return opcoes(menu());
 		}
 		return opcao;
 	}
 
-	public static int cadastrar(String msg) {
-		System.out.println(msg);
-		EmpresaDML.gravarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), Empresa.cadastrarEmpresa());
+	public static int cadastrar() {
+		
+		Empresa e = Empresa.cadastrarEmpresa();
+		EmpresaDML.gravarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), e);
+		Connect.empresas.adicionarEmpresaLista(e);
 		return opcoes(menu());
 	}
 
@@ -65,6 +69,7 @@ public class MenuEmpresa {
 			
 		}else {System.out.println("Empresa não encontrada, retornando ao menu."); }
 		
+		Util.aperteEnter();
 		return opcoes(menu());
 	}
 
@@ -74,6 +79,7 @@ public class MenuEmpresa {
 			
 			System.out.println("Empresa excluída com sucesso!");
 		}else{ System.out.println("Empresa não excluída!");};
+		Util.aperteEnter();
 		return opcoes(menu());
 		
 	}
@@ -82,7 +88,7 @@ public class MenuEmpresa {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		Connect.empresas.imprimirEmpresas();
-		input.next();
+		Util.aperteEnter();
 		return opcoes(menu());
 	}
 }

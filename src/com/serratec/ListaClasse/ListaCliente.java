@@ -2,6 +2,7 @@ package com.serratec.ListaClasse;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,7 +34,8 @@ public class ListaCliente {
 			c.setEndereco(tabela.getString("endereco"));
 			c.setTelefone(tabela.getString("telefone"));
 			c.setEmail(tabela.getString("email"));
-			c.setDtnasc(tabela.getString("dtnasc"));
+			String dtnasc = tabela.getString("dtnasc");
+			c.setDtnasc(LocalDate.parse(dtnasc));
 			c.setIdCliente(tabela.getInt("idcliente"));
 			
 			return (Cliente) c;
@@ -105,5 +107,9 @@ public class ListaCliente {
 			}
 		}
 		return excluido;
+	}
+
+	public void adicionarClienteLista(Cliente c) {
+		ListaCliente.clientes.add(c);
 	}
 }
