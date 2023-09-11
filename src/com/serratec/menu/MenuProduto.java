@@ -3,11 +3,12 @@ package com.serratec.menu;
 import com.serratec.ListaClasse.ListaProduto;
 import com.serratec.classes.Produto;
 import com.serratec.conexao.Connect;
-import com.serratec.conexao.DadosConexao;
 import com.serratec.constantes.Util;
 import com.serratec.dml.ProdutoDML;
 
 public class MenuProduto {
+
+	public static ListaProduto produtos = new ListaProduto(Connect.getCon(), Connect.dadosCon.getSchema());
 
 	public static int menu() {
 
@@ -28,10 +29,10 @@ public class MenuProduto {
 	public static int opcoes(int opcao) {
 
 		switch (opcao) {
-		case 1:	cadastrar(); break;
-		case 2:	alterar(); break;
-		case 3:	excluir(); break;
-		case 4:	listar(); break;
+		case 1: cadastrar(); break;
+		case 2: alterar(); break;
+		case 3: excluir(); break;
+		case 4: listar(); break;
 		case 5:
 			int opcaoMenuPrincipal = MenuPrincipal.menuPrincipal();
 			return MenuPrincipal.opcoes(opcaoMenuPrincipal);
@@ -39,46 +40,43 @@ public class MenuProduto {
 			Util.escrever("Sistema Finalizado!");
 			break;
 		default:
-			Util.escrever("Opcao invalida");
+			Util.escrever("Opcao inválida");
 		}
 		return opcao;
 	}
 
-	public static int cadastrar() {
+	public static void cadastrar() {
 		Produto produto = Produto.cadastrarProduto();
 		ProdutoDML.gravarProduto(Connect.getCon(), Connect.dadosCon.getSchema(), produto);
-		return menu();
+		produtos.adicionarProdutoLista(produto);
+		
+		opcoes(menu());
 	}
 
-	public static int alterar() {
-	    int idProduto = Util.validarInteiro("Informe o ID do produto que deseja alterar:");
-	    Produto produtoExistente = encontrarProdutoPorId(idProduto);
-
-	    if (produtoExistente != null) {
-	        Produto.alterarProduto(produtoExistente);
-	        ProdutoDML.alterarProduto(Connect.getCon(), Connect.dadosCon.getSchema(), produtoExistente);
-	    } else {
-	        System.out.println("Produto não encontrado com o ID especificado.");
-	    }
-
-	    return menu();
+	public static void alterar() {
+		Produto prodAlterar = produtos.localizarProduto(Produto.localizarProduto("Alteração do produto!"));
+		
+		if (!(prodAlterar == null)) {
+			Produto.alterarProduto(prodAlterar);
+			ProdutoDML.alterarProduto(Connect.getCon(), Connect.dadosCon.getSchema(), prodAlterar);
+		}
+		else System.out.println("Produto não encontrado!");
+		opcoes(menu());
 	}
-
-	private static Produto encontrarProdutoPorId(int idProduto) {
-	    ListaProduto listaProduto = new ListaProduto(Connect.getCon(), Connect.dadosCon.getSchema());
-	    for (Produto produto : listaProduto.produtos) {
-	        if (produto.getIdProduto() == idProduto) {
-	            return produto;
-	        }
-	    }
-	    return null;
-	}
-
-	public static int excluir() {
-		return menu();
+	
+	public static void excluir() {
+		Produto prodExcluir = produtos.localizarProduto(Produto.localizarProduto("Exclusão do produto!"));
+		
+		if(!(prodExcluir == null)) {
+			produtos.excluirProduto(prodExcluir);
+			ProdutoDML.excluirProduto(Connect.getCon(), Connect.dadosCon.getSchema(), prodExcluir);
+		}
+		else System.out.println("Produto não encontrado!");
+		opcoes(menu());
 	}
 
 	public static int listar() {
-		return menu();
+		ListaProduto.imprimirProdutos();
+		return opcoes(menu());
 	}
 }

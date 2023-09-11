@@ -4,7 +4,7 @@ import com.serratec.classes.Empresa;
 import com.serratec.conexao.Conexao;
 import com.serratec.dao.EmpresaDAO;
 
-public class EmpresaDML {
+public class PedidoDML {
 
 	public static void gravarEmpresa(Conexao con, String schema, Empresa e) {
 

@@ -19,10 +19,11 @@ public class Connect {
 	
 	public static ListaCliente clientes;
 	public static ListaEmpresa empresas;
+	private static ListaProduto produtos;
+	
 	
 	
 	//public static ListaPedido pedidos;
-	//public static ListaProduto produtos;
 	
 	public static void dadosEntrada() {
 		
@@ -31,10 +32,10 @@ public class Connect {
 				con = new Conexao(dadosCon); 
 				con.conect();
 				
-				clientes = new ListaCliente(con, dadosCon.getSchema());
-				empresas = new ListaEmpresa(con, dadosCon.getSchema());
-				//pedidos = new ListaPedido(con, dadosCon.getSchema());
-				//produtos = new ListaProduto(con, dadosCon.getSchema());
+				clientes = new ListaCliente(getCon(), dadosCon.getSchema());
+				empresas = new ListaEmpresa(getCon(), dadosCon.getSchema());
+				//pedidos = new ListaPedido(getCon(), dadosCon.getSchema());
+				produtos = new ListaProduto(getCon(), dadosCon.getSchema());
 				
 				MenuPrincipal.opcoes(MenuPrincipal.menuPrincipal());
 				
@@ -98,5 +99,9 @@ public class Connect {
 
 	public static ListaCliente getClientes() {
 		return clientes;
+	}
+	
+	public static ListaProduto getProdutos() {
+		return produtos;
 	}
 }

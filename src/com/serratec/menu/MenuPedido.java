@@ -5,7 +5,7 @@ import com.serratec.conexao.*;
 import com.serratec.constantes.Util;
 import com.serratec.dml.EmpresaDML;
 
-public class MenuEmpresa {
+public class MenuPedido {
 	public static int menu() {
 
 		Util.escrever(Util.LINHAD);

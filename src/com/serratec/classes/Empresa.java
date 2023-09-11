@@ -51,4 +51,48 @@ public class Empresa extends Parceiro {
 
 		return e;
 	}
+
+	public static Empresa alterarEmpresa(Empresa e) {
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+
+
+		System.out.println(Util.LINHA);
+		Util.escrever("Alteração de empresa: ");
+		System.out.println(Util.LINHA);
+
+		Util.br();
+
+		Util.escrever("Alterar o nome ou pressione ENTER para manter original: ");
+		String nome = in.nextLine();
+			if (nome != null && !nome.trim().isEmpty()) {
+				e.setNome(nome);
+			}
+
+		Util.escrever("Alterar o CPF ou pressione ENTER para manter original::");
+		String cnpj = in.nextLine();
+			if (cnpj != null && !cnpj.trim().isEmpty()) {
+				e.setCpf_cnpj(cnpj);
+			}
+
+		Util.escrever("Alterar o telefone ou pressione ENTER para manter original::");
+		String tel = in.nextLine();
+			if (tel != null && !tel.trim().isEmpty()) {
+				e.setTelefone(tel);
+			}
+
+		Util.escrever("Alterar o email ou pressione ENTER para manter original::");
+		String email = in.nextLine();
+			if (email != null && !email.trim().isEmpty()) {
+				e.setEmail(email);
+			}
+		
+		Util.escrever("Alterar o endereço ou pressione ENTER para manter original::");
+		String end = in.nextLine();
+			if (end != null && !end.trim().isEmpty()) {
+				e.setEndereco(end);
+			}
+		
+		return e;
+	}
 }

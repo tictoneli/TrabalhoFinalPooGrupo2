@@ -114,6 +114,14 @@ public class Produto implements Calculos {
 		return p;
 	}
 
+	public static int localizarProduto(String msg) {
+
+		System.out.println(Util.LINHA);
+		System.out.println("Alteração de produto");
+		System.out.println(Util.LINHA);
+		return Util.validarInteiro("Informe o código do produto:");
+	}
+
 	public static Produto alterarProduto(Produto produtoExistente) {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
@@ -128,27 +136,39 @@ public class Produto implements Calculos {
 
 		Util.escrever("Alterar o nome:");
 		String nome = in.nextLine();
-		produtoExistente.setNome(nome);
+		if (nome != null && !nome.trim().isEmpty()) {
+			produtoExistente.setNome(nome);
+		}
 
-		Util.escrever("Alterar o código:");
-		long codigo = Util.validarInteiro("Código: ");
-		produtoExistente.setCdProduto(codigo);
+		Util.escrever("Alterar o codigo do produto:");
+		String num = in.nextLine();
+		if (!num.isEmpty()) {
+			long codigo = Integer.parseInt(num);
+			produtoExistente.setCdProduto(codigo);
+		}
 
 		Util.escrever("Alterar a descrição:");
 		String descricao = in.nextLine();
-		produtoExistente.setDescricao(descricao);
+		if (descricao != null && !descricao.trim().isEmpty()) {
+			produtoExistente.setDescricao(descricao);
+		}
 
 		Util.escrever("Alterar o valor unitário:");
-		Double valorUnitario = Util.validarDouble("Valor Unitário: ");
-		produtoExistente.setValorUnit(valorUnitario);
+		num = in.nextLine();
+		if (!num.isEmpty()) {
+			double valorUnit = Double.parseDouble(num);
+			produtoExistente.setValorUnit(valorUnit);
+		}
 
 		Util.escrever("Alterar a porcentagem de lucro:");
-		Double porcentagem = Util.validarDouble("Porcentagem: ");
-		produtoExistente.setPorcento(porcentagem);
+		num = in.nextLine();
+		if (!num.isEmpty()) {
+			double porcento = Double.parseDouble(num);
+			produtoExistente.setPorcento(porcento);
+		}
 
 		produtoExistente.somarValor(valor);
 
 		return produtoExistente;
 	}
-
 }

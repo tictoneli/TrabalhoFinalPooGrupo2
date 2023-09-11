@@ -55,7 +55,7 @@ public class ClienteDAO {
 		sql += " endereco = ?,";
 		sql += " telefone = ?,";
 		sql += " email = ?,";
-		sql += " dtnasc = ?,";
+		sql += " dtnasc = ?";
 		sql += " where idcliente = ?";
 		
 		try {

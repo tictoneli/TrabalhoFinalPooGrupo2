@@ -114,7 +114,7 @@ public class EmpresaDAO {
 			return pExclusao.executeUpdate();
 		} catch (Exception e) {
 			if (e.getLocalizedMessage().contains("is null")) {
-				System.err.println("\nEmpresa nao excluída.\nVerifique se foi chamado o conect:\n" + e);
+				System.err.println("\nEmpresa nao incluida.\nVerifique se foi chamado o conect:\n" + e);
 			} else {
 				System.err.println(e);
 				e.printStackTrace();

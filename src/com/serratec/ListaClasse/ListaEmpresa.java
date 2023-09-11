@@ -39,7 +39,7 @@ public class ListaEmpresa {
 		}
 	}
 
-	public void carregarListaEmpresas() {
+	private void carregarListaEmpresas() {
 		EmpresaDAO edao = new EmpresaDAO(con, schema);
 		ResultSet tabela = edao.carregarEmpresa();
 		ListaEmpresa.empresas.clear();
@@ -71,33 +71,18 @@ public class ListaEmpresa {
 		
 	}
 
-	public static Empresa localizarEmpresa(int opt) {
+	public static Empresa localizarEmpresa() {
 		Empresa localizado = null;
-		int idempresa;
 		String cnpjempresa;
+		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 			
-		switch(opt)	{
-		
-		case 1: {
-				idempresa = input.nextInt();	
-				for (Empresa e : empresas) {
-					if (e.getIdEmpresa()== idempresa) {
-						localizado = e;
-						break;}
-						System.out.println("Empresa não localizada, retornando ao menu."); input.next(); break;
-				}
-		}
-			
-		case 2: {
 				cnpjempresa = input.nextLine();
 				for (Empresa e : empresas) {
 					if (e.getCpf_cnpj().equals(cnpjempresa)) {
 						localizado = e;
 						break;}
-						
-				} //System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
-		}
+			
 			}return localizado;
 	}
 

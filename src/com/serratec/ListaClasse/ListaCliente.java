@@ -76,36 +76,21 @@ public class ListaCliente {
 		
 	}
 	
-	public static Cliente localizarCliente(int opt) {
+	public static Cliente localizarCliente() {
 		Cliente localizado = null;
-		int idcliente;
 		String cpfcliente;
+		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
-			
-		switch(opt)	{
+			cpfcliente = input.nextLine();
 		
-			case 1: {
-					idcliente = input.nextInt();
-					for (Cliente c : clientes) {
-						if (c.getIdCliente()== idcliente) {
-							localizado = c;
-							break;}
-							
-					}System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
-			}
-			
-			case 2: {
-					cpfcliente = input.nextLine();
-					for (Cliente c : clientes) {
-						if (c.getCpf_cnpj().equals(cpfcliente)) {
-							localizado = c;
-							break;}
-							
-					} //System.out.println("Cliente não localizado, retornando ao menu."); input.next(); break;
-			}
-		}return localizado;
-	}
-	
+			for (Cliente c : clientes) {
+				if (c.getCpf_cnpj().equals(cpfcliente)) {
+					localizado = c;
+					break;
+					}
+			} return localizado;
+		}
+		
 	public static boolean excluirCliente(Cliente c) {
 	
 		
