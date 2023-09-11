@@ -74,7 +74,7 @@ public class ClienteDAO {
 			pAlteracao.setString(3, cliente.getEndereco());
 			pAlteracao.setString(4, cliente.getTelefone());
 			pAlteracao.setString(5, cliente.getEmail());
-			pInclusao.setDate(6, Date.valueOf(cliente.getDtnasc()));
+			pAlteracao.setDate(6, Date.valueOf(cliente.getDtnasc()));
 			pAlteracao.setInt(7, cliente.getIdCliente());
 			
 			return pAlteracao.executeUpdate();

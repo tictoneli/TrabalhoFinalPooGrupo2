@@ -10,7 +10,7 @@ public abstract class Parceiro {
 	private String telefone;
 	private String email;
 	private String endereco;
-	private LocalDate dtnasc;
+	
 	
 	public String getNome() {
 		return nome;
@@ -42,11 +42,6 @@ public abstract class Parceiro {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public LocalDate getDtnasc() {
-		return dtnasc;
-	}
-	public void setDtnasc(LocalDate localDate) {
-		this.dtnasc = localDate;
-	}
+	
 	
 }
