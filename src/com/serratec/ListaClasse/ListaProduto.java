@@ -19,7 +19,7 @@ public class ListaProduto {
 	private Conexao con;
 	private String schema;
 
-	static ArrayList<Produto> produtos = new ArrayList<>();
+	protected static ArrayList<Produto> produtos = new ArrayList<>();
 
 	public ListaProduto(Conexao con, String schema) {
 		this.con = con;

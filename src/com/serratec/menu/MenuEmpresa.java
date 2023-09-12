@@ -52,6 +52,7 @@ public class MenuEmpresa {
 	public static int cadastrar() {
 		
 		Empresa e = Empresa.cadastrarEmpresa();
+		
 		EmpresaDML.gravarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), e);
 		Connect.empresas.adicionarEmpresaLista(e);
 		return opcoes(menu());

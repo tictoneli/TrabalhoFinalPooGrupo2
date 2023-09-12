@@ -2,57 +2,89 @@ package com.serratec.classes;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.serratec.constantes.Util;
-
+import com.serratec.ListaClasse.*;
 public class ProdutoPedido {
+	
+	
+	
+	
 
-	private class Itens extends Produto {
+		private class Itens extends Produto {
+	
+			private int quantidade;
+			@Override
+			public String toString() {
+				return "Itens [quantidade=" + quantidade + ", iditem=" + iditem + "]";
+			}
 
-		private int quantidade;
+			private long iditem;
+			
+			
+			public int getQuantidade() {
+				return quantidade;
+			}
+	
+			public void setQuantidade(int quantidade) {
+				this.quantidade = quantidade;
+			}
+				
+			public long getIditem() {
+				return iditem;
+			}
 
-		@SuppressWarnings("unused")
-		public int getQuantidade() {
-			return quantidade;
+			private void setIditem(long iditem) {
+				this.iditem = iditem;
+			}
 		}
+	
+	private ArrayList<Itens> produtosped = new ArrayList<>();
 
-		public void setQuantidade(int quantidade) {
-			this.quantidade = quantidade;
-		}
+	@Override
+	public String toString() {
+		return "ProdutoPedido [produtosped=" + produtosped + "]";
 	}
 
-	private ArrayList<Itens> produtos = new ArrayList<>();
-
 	public ArrayList<Itens> getProdutos() {
-		return produtos;
+		return produtosped;
 	}
 
 	public void AdicionarProdutos() {
-		
-		@SuppressWarnings("resource")
-		Scanner in = new Scanner(System.in);
-		boolean continua = true;
-		String resposta;
+        @SuppressWarnings("resource")
+        Scanner in = new Scanner(System.in);
+        boolean continua = true;
+        String resposta;
 
-		do {
-			Itens itens = new Itens();
-			Util.escrever("Informe o cÃ³digo do produto:");
-			int codigo = in.nextInt();
-			in.nextLine();
+        do {
+            Itens itens = new Itens();
 
-			Util.escrever("Informe a Quantidade:");
-			int quantidade = in.nextInt();
-			in.nextLine();
-			itens.setCdProduto(codigo);
-			itens.setQuantidade(quantidade);
+            Util.escrever("Informe o código do produto:");  
 
-			produtos.add(itens);
+            Produto produto = ListaProduto.localizarProduto();
+            
+            if (produto != null) {
+                Util.escrever("Informe a quantidade:");
+                int quantidade = in.nextInt();
+                in.nextLine();
 
-			Util.escrever("Digite 'ENTER' para adicionar mais produtos, digite 's' para sair");
-			resposta = in.nextLine();
-			continua = !resposta.equals("s");
-			
-		} while (continua);
-	}
+                itens.setIditem(produto.getCdProduto());
+                itens.setQuantidade(quantidade);
+
+                produtosped.add(itens);
+
+                Util.escrever("Produto adicionado com sucesso!");
+            } else {
+                Util.escrever("Produto não encontrado. Verifique o código informado.");
+               
+            }
+
+            Util.escrever("Digite 'ENTER' para adicionar mais produtos, digite 's' para sair");
+            resposta = in.nextLine();
+            continua = !resposta.equals("s");
+
+        } while (continua);
+    }
+	
+	
 
 }

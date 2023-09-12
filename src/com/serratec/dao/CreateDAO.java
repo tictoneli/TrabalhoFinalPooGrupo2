@@ -144,7 +144,7 @@ public class CreateDAO {
 		if (entidadeExists(con, schema, entidade)) {
 			criarCampo(con, schema, entidade, "idcliente", "serial", true, false, null, null);
 			criarCampo(con, schema, entidade, "nome", "varchar(100)", false, false, null, null);
-			criarCampo(con, schema, entidade, "cpf", "varchar(11)", false, false, null, null);
+			criarCampo(con, schema, entidade, "cpf", "varchar(11) UNIQUE NOT NULL", false, false, null, null);
 			criarCampo(con, schema, entidade, "telefone", "varchar(15)", false, false, null, null);
 			criarCampo(con, schema, entidade, "email", "varchar(100)", false, false, null, null);
 			criarCampo(con, schema, entidade, "endereco", "varchar(150)", false, false, null, null);
@@ -161,7 +161,7 @@ public class CreateDAO {
 		if (entidadeExists(con, schema, entidade)) {
 			criarCampo(con, schema, entidade, "idempresa", "serial", true, false, null, null);
 			criarCampo(con, schema, entidade, "nome", "varchar(100)", false, false, null, null);
-			criarCampo(con, schema, entidade, "cnpj", "varchar(14)", false, false, null, null);
+			criarCampo(con, schema, entidade, "cnpj", "varchar(14) UNIQUE NOT NULL", false, false, null, null);
 			criarCampo(con, schema, entidade, "telefone", "varchar(15)", false, false, null, null);
 			criarCampo(con, schema, entidade, "email", "varchar(100)", false, false, null, null);
 			criarCampo(con, schema, entidade, "endereco", "varchar(150)", false, false, null, null);
@@ -177,7 +177,7 @@ public class CreateDAO {
 		if (entidadeExists(con, schema, entidade)) {
 			criarCampo(con, schema, entidade, "idproduto", "serial", true, false, null, null);
 			criarCampo(con, schema, entidade, "nome", "varchar(100)", false, false, null, null);
-			criarCampo(con, schema, entidade, "cdproduto", "bigint", false, false, null, null);
+			criarCampo(con, schema, entidade, "cdproduto", "bigint UNIQUE NOT NULL", false, false, null, null);
 			criarCampo(con, schema, entidade, "descricao", "varchar(150)", false, false, null, null);
 			criarCampo(con, schema, entidade, "valorunit", "double precision", false, false, null, null);
 			criarCampo(con, schema, entidade, "porcento", "double precision", false, false, null, null);
@@ -193,13 +193,12 @@ public class CreateDAO {
 
 		if (entidadeExists(con, schema, entidade)) {
 			criarCampo(con, schema, entidade, "idpedido", "serial", true, false, null, null);
-			criarCampo(con, schema, entidade, "codigo", "varchar(10)", false, false, null, null);
+			criarCampo(con, schema, entidade, "codigo", "varchar(10) UNIQUE NOT NULL", false, false, null, null);
 			criarCampo(con, schema, entidade, "datapedido", "date", false, false, null, null);
 			criarCampo(con, schema, entidade, "idcliente", "integer", false, true, "cliente", "idcliente");
 			criarCampo(con, schema, entidade, "idempresa", "integer", false, true, "empresa", "idempresa");
 			criarCampo(con, schema, entidade, "idproduto", "integer", false, true, "produto", "idproduto");
-			criarCampo(con, schema, entidade, "qtprodutos", "integer", false, false, null, null);
-		}	// melhor uma entidade parceiros para puxar ids cliente e empresa? else tabela pedidos terá muitos nulls no sql
+		}
 	}
 
 	// Verificando se já existe no BD

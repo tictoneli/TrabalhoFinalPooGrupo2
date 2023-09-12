@@ -1,11 +1,15 @@
 package com.serratec.ListaClasse;
 
+import com.serratec.classes.Cliente;
+import com.serratec.classes.Empresa;
 import com.serratec.classes.Pedido;
+import com.serratec.classes.ProdutoPedido;
 import com.serratec.conexao.Conexao;
 import com.serratec.dao.PedidoDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ListaPedido {
@@ -21,15 +25,16 @@ public class ListaPedido {
 	}
 
 	private Pedido dadosPedido(ResultSet tabela) {
-		Pedido p = new Pedido(0, 0, null, null, null);
+		Pedido p = new Pedido();
 
 		try {
-			p.setNome(tabela.getString("nome"));
-			p.setCpf_cnpj("cpf");
-			p.setEndereco(tabela.getString("endereco"));
-			p.setTelefone("telefone");
-			p.setEmail("email");
-			p.setIdEmpresa(tabela.getInt("idEmpresa"));
+			p.setCdPedido(tabela.getLong("codigo"));
+			String datapedido = tabela.getString("datapedido");
+			p.setDtPedido(LocalDate.parse(datapedido));
+			p.setCliente(new Cliente());
+			p.setEmpresa(new Empresa());
+			p.setProdutos(new ProdutoPedido());
+			p.setIdPedido(tabela.getLong("idpedido"));
 			return p;
 		} catch (SQLException var4) {
 			var4.printStackTrace();
@@ -38,13 +43,11 @@ public class ListaPedido {
 	}
 
 	private void carregarListaPedidos() {
-		PedidoDAO edao = new PedidoDAO(con, schema);
-		ResultSet tabela = edao.carregarEmpresa();
+		PedidoDAO pdao = new PedidoDAO(con, schema);
+		ResultSet tabela = pdao.carregarPedido();
 		ListaPedido.pedidos.clear();
 
 		try {
-			tabela.beforeFirst();
-
 			while (tabela.next()) {
 				ListaPedido.pedidos.add(this.dadosPedido(tabela));
 			}

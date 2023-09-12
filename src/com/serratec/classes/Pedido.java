@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import com.serratec.ListaClasse.ListaCliente;
+import com.serratec.ListaClasse.ListaEmpresa;
 import com.serratec.constantes.Util;
 
 public class Pedido {
@@ -75,27 +76,46 @@ public class Pedido {
 
 		Util.br();
 
-		Util.escrever("Informe o número do pedido:");
+		Util.escrever("Informe o código do pedido:");
 		int i = in.nextInt();
 		in.nextLine();
 		p.setCdPedido(i);
 
 		Util.escrever("Informe o cpf do Cliente:");
-		String cpf = in.nextLine();
 		Cliente cliente = ListaCliente.localizarCliente();
+			if(!(cliente == null)) {
+				p.setCliente(cliente);
+				}else { System.err.println("Cliente não encontrado! ");
+					return null;
+				}
+			
+		
 
-		//cliente.setCpf_cnpj(cpf);
-
-		p.setCliente(cliente);
-
-		Util.escrever("Informe o nome da empresa:");
-		String nome = in.nextLine();
-		Empresa empresa = new Empresa();
-		empresa.setNome(nome);
-		p.setEmpresa(empresa);
-
+		Util.escrever("Informe o CNPJ da empresa responsável: ");
+		Empresa empresa = ListaEmpresa.localizarEmpresa();
+		if(!(empresa == null)) {
+			p.setEmpresa(empresa);
+			}else { System.err.println("Empresa não encontrada! ");
+				return null;
+			}
+		
+		
+		ProdutoPedido pd = new ProdutoPedido();
+		
+		pd.AdicionarProdutos();
+		p.setProdutos(pd);
+		System.out.println(p.getProdutos().getProdutos().toString());
+		
+		/*
 		p.produtos.AdicionarProdutos();
-
+		if(!(p.getProdutos().getProdutos() == null || p.getProdutos().getProdutos().isEmpty())) {
+			
+			}else {System.out.println("Carrinho vazio, por favor insira mais de um produto para criar o pedido!");
+			return null;
+			}
+		*/
+		
+		
 		p.dtPedido = LocalDate.now();
 		
 		return p;

@@ -35,9 +35,13 @@ public static int menuPrincipal() {
 		case 3: ; 
 			int opcaoMenuProduto = MenuProduto.menu();
 	        return MenuProduto.opcoes(opcaoMenuProduto);
-		case 4: ; break;
+		case 4: ; 
+			int opcaoMenuPedido = MenuPedido.menu();
+        	return MenuPedido.opcoes(opcaoMenuPedido);
 		case 5: Util.escrever("Sistema Finalizado!"); break;
 		default: Util.escrever("Opcao invalida");
+		Util.aperteEnter();
+		return opcoes(menuPrincipal());
 		}
 		return opcao;
 	}
