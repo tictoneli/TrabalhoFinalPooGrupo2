@@ -52,16 +52,34 @@ public class MenuProduto {
 
 	public static void cadastrar() {
 		
+// método cadastrarproduto retorna um novo produto, método cadastrar guarda esse novo produto
+		
 		Produto produto = Produto.cadastrarProduto();
+
+//método gravarproduto chama o produtoDAO, que escreve esse novo produto em um query pro banco de dados
+		
 		ProdutoDML.gravarProduto(Connect.getCon(), Connect.dadosCon.getSchema(), produto);
+
+//aqui adicionamos o novo produto ao array do java, para excluir, imprimir, alterar, entre outras coisas
+//puxamos os array criados na classe connect, pois é onde criamos esses arrays ao abrir o nosso aplicativo
+		
 		Connect.produtos.adicionarProdutoLista(produto);
+		
+//depois de criar o produto, incluir no banco de dados e adicionar no array, voltamos ao menu
+		
 		opcoes(menu());
 	}
 
 	public static void alterar(String msg) {
+		
 		System.out.println(msg);
 		
+//primeiro localizamos o produto no array do java, o mesmo criado no connect, quando abrimos o aplicativo
+		
 		Produto p = ListaProduto.localizarProduto();
+	
+//só alterar caso o produto localizado não seja nulo, via if else
+//ao alterar um produto existente, não precisamos atualizar a lista java, mas precisamos atualizar o banco de dados com o produtoDML
 		
 		if (!(p == null)) {
 			Produto.alterarProduto(p);
@@ -72,6 +90,9 @@ public class MenuProduto {
 	}
 	
 	public static void excluir(String msg) {
+		
+//mesmo procedimento do alterar, com a diferença que o método excluirproduto (que recebe o produto localizado como parâmetro)
+//retorna um valor boolean que pode ser usado como condição do if else
 		
 		System.out.println(msg);
 		if	(Connect.produtos.excluirProduto(ListaProduto.localizarProduto())) {
@@ -84,9 +105,12 @@ public class MenuProduto {
 	}
 
 	public static int listar() {
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
+		
+// a listagem de produtos exibe todos os produtos que estão
+//atualmente salvos no array criado no início do aplicativo
+		
 		ListaProduto.imprimirProdutos();
+		
 		Util.aperteEnter();
 		return opcoes(menu());
 	}

@@ -23,6 +23,8 @@ public class ClienteDAO {
 		prepararSqlExclusao();
 	}
 	
+//preparar query na memória pra otimizar o sistema
+	
 	private void prepararSqlExclusao() {
 		String sql = "delete from "+ this.schema + ".cliente";
 		sql += " where idcliente = ?";
@@ -66,6 +68,8 @@ public class ClienteDAO {
 			e.printStackTrace();
 		}
 	}
+	
+//execução de updates
 	
 	public int alterarCliente(Cliente cliente) {
 		try {
@@ -126,6 +130,8 @@ public class ClienteDAO {
 			return 0;
 		}
 	}
+	
+//select com o retorno dos resultados sendo guardados em uma tabela do tipo resultset
 	
 	public ResultSet carregarClientes() {
 		ResultSet tabela;				

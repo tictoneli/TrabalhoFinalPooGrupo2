@@ -5,6 +5,9 @@ import com.serratec.constantes.Util;
 
 public class MenuPrincipal {
 
+//esse menu principal é chamado depois que são checados todos os dados de conexão
+//e depois que todos os arrays são criados (vide 
+	
 public static int menuPrincipal() {
 		
 		Util.escrever(Util.LINHAD);

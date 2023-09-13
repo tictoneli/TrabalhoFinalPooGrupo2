@@ -17,22 +17,40 @@ public class Connect {
 	public static final String PATH = FileSystemView.getFileSystemView().getDefaultDirectory().toString();
 	public static final String SFILE = "DadosConexao.ini";
 	
+
+	
 	public static ListaCliente clientes;
 	public static ListaEmpresa empresas;
 	public static ListaProduto produtos;
 	public static ListaPedido pedidos;
 	
+
+	
 	public static void dadosEntrada() {
 		
 		if (configInicial()) {
+			
+//se conseguir criar o banco de dados com as informações que foram passadas na configinicial,
+//armazene essas informações em uma variável do tipo Conexao chamada "con"
+			
 			if (CreateDAO.createBD(dadosCon.getBanco(), dadosCon.getSchema(), dadosCon)) {
 				con = new Conexao(dadosCon); 
 				con.conect();
+			
+				
+//o método dadosEntrada "abre" nosso sistema
+//o sistema só é "aberto" depois que a configinicial retorna TRUE
+				
+// aqui criamos os arrays que vamos usar ao longo do aplicativo
+// os próprios construtores de cada array chamam um método para
+//carregar as informações do banco de dados para si
 				
 				clientes = new ListaCliente(getCon(), dadosCon.getSchema());
 				empresas = new ListaEmpresa(getCon(), dadosCon.getSchema());
 				pedidos = new ListaPedido(getCon(), dadosCon.getSchema());
 				produtos = new ListaProduto(getCon(), dadosCon.getSchema());
+				
+				
 				
 				MenuPrincipal.opcoes(MenuPrincipal.menuPrincipal());
 				
