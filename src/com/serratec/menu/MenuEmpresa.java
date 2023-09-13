@@ -2,9 +2,7 @@ package com.serratec.menu;
 
 import java.util.Scanner;
 
-import com.serratec.ListaClasse.ListaCliente;
 import com.serratec.ListaClasse.ListaEmpresa;
-import com.serratec.classes.Cliente;
 import com.serratec.classes.Empresa;
 import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
@@ -31,10 +29,18 @@ public class MenuEmpresa {
 	public static int opcoes(int opcao) {
 
 		switch (opcao) {
-		case 1: cadastrar(); break;
-		case 2: alterar("Alteração de empresa - insira o CNPJ da empresa a ser alterada: "); break;
-		case 3: excluir("Exclusão de empresa - insira o CNPJ da empresa a ser excluida: "); break;
-		case 4: listar(); break;
+		case 1:
+			cadastrar();
+			break;
+		case 2:
+			alterar("Alteração de empresa - insira o CNPJ da empresa a ser alterada: ");
+			break;
+		case 3:
+			excluir("Exclusão de empresa - insira o CNPJ da empresa a ser excluida: ");
+			break;
+		case 4:
+			listar();
+			break;
 		case 5:
 			int opcaoMenuPrincipal = MenuPrincipal.menuPrincipal();
 			return MenuPrincipal.opcoes(opcaoMenuPrincipal);
@@ -50,9 +56,9 @@ public class MenuEmpresa {
 	}
 
 	public static int cadastrar() {
-		
+
 		Empresa e = Empresa.cadastrarEmpresa();
-		
+
 		EmpresaDML.gravarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), e);
 		Connect.empresas.adicionarEmpresaLista(e);
 		return opcoes(menu());
@@ -60,29 +66,32 @@ public class MenuEmpresa {
 
 	public static int alterar(String msg) {
 		System.out.println(msg);
-		
-	
-		
+
 		Empresa e = ListaEmpresa.localizarEmpresa();
 		if (!(e == null)) {
-		Empresa.alterarEmpresa(e);
-		EmpresaDML.alterarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), e);
-			
-		}else {System.out.println("Empresa não encontrada, retornando ao menu."); }
-		
+			Empresa.alterarEmpresa(e);
+			EmpresaDML.alterarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), e);
+
+		} else {
+			System.out.println("Empresa não encontrada, retornando ao menu.");
+		}
+
 		Util.aperteEnter();
 		return opcoes(menu());
 	}
 
 	public static int excluir(String msg) {
 		System.out.println(msg);
-		if(	ListaEmpresa.excluirEmpresa(ListaEmpresa.localizarEmpresa())){
-			
+		if (ListaEmpresa.excluirEmpresa(ListaEmpresa.localizarEmpresa())) {
+
 			System.out.println("Empresa excluída com sucesso!");
-		}else{ System.out.println("Empresa não excluída!");};
+		} else {
+			System.out.println("Empresa não excluída!");
+		}
+		;
 		Util.aperteEnter();
 		return opcoes(menu());
-		
+
 	}
 
 	public static int listar() {

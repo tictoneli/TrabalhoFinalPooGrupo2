@@ -1,29 +1,26 @@
 package com.serratec.dml;
 
-import com.serratec.classes.Empresa;
+import com.serratec.classes.Pedido;
 import com.serratec.conexao.Conexao;
-import com.serratec.dao.EmpresaDAO;
+import com.serratec.dao.PedidoDAO;
 
 public class PedidoDML {
 
-	public static void gravarEmpresa(Conexao con, String schema, Empresa e) {
+	public static void gravarPedido(Conexao con, String schema, Pedido p) {
 
-		EmpresaDAO edao = new EmpresaDAO(con, schema);
-
-		edao.incluirEmpresa(e);
+		PedidoDAO pdao = new PedidoDAO(con, schema);
+		pdao.incluirPedido(p);
 	}
 
-	public static void alterarEmpresa(Conexao con, String schema, Empresa e) {
+	public static void alterarPedido(Conexao con, String schema, Pedido p) {
 
-		EmpresaDAO edao = new EmpresaDAO(con, schema);
-
-		edao.alterarEmpresa(e);
+		PedidoDAO pdao = new PedidoDAO(con, schema);
+		pdao.alterarPedido(p);
 	}
 
-	public static void excluirEmpresa(Conexao con, String schema, Empresa e) {
+	public static void excluirPedido(Conexao con, String schema, Pedido p) {
 
-		EmpresaDAO edao = new EmpresaDAO(con, schema);
-
-		edao.excluirEmpresa(e);
+		PedidoDAO pdao = new PedidoDAO(con, schema);
+		pdao.excluirPedido(p);
 	}
 }

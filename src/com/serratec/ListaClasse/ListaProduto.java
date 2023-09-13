@@ -3,15 +3,12 @@ package com.serratec.ListaClasse;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
-import com.serratec.classes.Cliente;
 import com.serratec.classes.Produto;
 import com.serratec.conexao.Conexao;
 import com.serratec.constantes.Util;
 import com.serratec.dao.ProdutoDAO;
-import com.serratec.dml.ClienteDML;
 import com.serratec.dml.ProdutoDML;
 
 public class ListaProduto {
@@ -49,7 +46,6 @@ public class ListaProduto {
 
 	private void carregarListaProdutos() {
 		ProdutoDAO produtoDAO = new ProdutoDAO(con, schema);
-
 		ResultSet tabela = produtoDAO.carregarProdutos();
 		ListaProduto.produtos.clear();
 
@@ -77,7 +73,7 @@ public class ListaProduto {
 		Long cdprod;
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
-			cdprod = input.nextLong();
+		cdprod = input.nextLong();
 
 		for (Produto prod : produtos) {
 			if (prod.getCdProduto() == cdprod) {
@@ -90,10 +86,9 @@ public class ListaProduto {
 
 	public boolean excluirProduto(Produto prodExcluir) {
 
-		
 		boolean excluido = false;
 		for (Produto pd : produtos) {
-			if(pd.getIdProduto() == prodExcluir.getIdProduto()) {
+			if (pd.getIdProduto() == prodExcluir.getIdProduto()) {
 				produtos.remove(produtos.lastIndexOf(pd));
 				ProdutoDML.excluirProduto(con, schema, prodExcluir);
 				excluido = true;

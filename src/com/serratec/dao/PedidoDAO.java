@@ -1,5 +1,6 @@
 package com.serratec.dao;
 
+import java.sql.Array;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,7 +73,7 @@ public class PedidoDAO {
 			pAlteracao.setDate(2, Date.valueOf(pedido.getDtPedido()));
 			pAlteracao.setLong(3, pedido.getCliente().getIdCliente());
 			pAlteracao.setLong(4, pedido.getEmpresa().getIdEmpresa());
-			pAlteracao.setLong(5, pedido.getProdutos().getIditem());
+			pAlteracao.setLong(5, pedido.getProdutos().getIdProdPedido());
 			pAlteracao.setLong(6, pedido.getIdPedido());
 
 			return pAlteracao.executeUpdate();
@@ -94,7 +95,7 @@ public class PedidoDAO {
 			pInclusao.setDate(2, Date.valueOf(pedido.getDtPedido()));
 			pInclusao.setLong(3, pedido.getCliente().getIdCliente());
 			pInclusao.setLong(4, pedido.getEmpresa().getIdEmpresa());
-			pInclusao.setLong(5, pedido.getProdutos().getIditem());
+			pInclusao.setLong(5, pedido.getProdutos().getIdProdPedido());
 
 			return pInclusao.executeUpdate();
 		} catch (Exception e) {
@@ -132,4 +133,7 @@ public class PedidoDAO {
 
 		return tabela;
 	}
+
+	
+
 }

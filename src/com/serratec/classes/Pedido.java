@@ -104,7 +104,7 @@ public class Pedido {
 		
 		pd.AdicionarProdutos();
 		p.setProdutos(pd);
-		System.out.println(p.getProdutos().getProdutos().toString());
+//		System.out.println(p.getProdutos().getProdutos().toString());
 		
 		/*
 		p.produtos.AdicionarProdutos();
