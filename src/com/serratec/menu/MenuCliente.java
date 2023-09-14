@@ -11,9 +11,9 @@ import java.util.Scanner;
 import com.serratec.ListaClasse.ListaCliente;
 
 public class MenuCliente {	
-
+	
 	public static int menu() {
-
+		
 		Util.escrever(Util.LINHAD);
 		Util.escrever("Menu Cliente");
 		Util.escrever(Util.LINHAD);
@@ -24,12 +24,12 @@ public class MenuCliente {
 		Util.escrever("5- Voltar");
 		Util.escrever("6- Sair");
 		Util.escrever(Util.LINHA);
-
+		
 		return Util.validarInteiro("Informe uma opcao: ");
 	}
-
+	
 	public static int opcoes(int opcao) {
-
+			
 		switch (opcao) {
 			case 1: cadastrar(); break;
 			case 2: alterar("Alteração de cliente - insira o CPF do cliente a ser alterado: "); break;
@@ -45,7 +45,7 @@ public class MenuCliente {
 		}
 		return opcao;
 	}
-
+		
 	public static int cadastrar() {
 		
 // método cadastrarcliente retorna um novo cliente
@@ -53,7 +53,7 @@ public class MenuCliente {
 		Cliente c = Cliente.cadastrarCliente();
 		
 //método gravarcliente chama o clienteDAO, que escreve esse novo cliente em um query pro banco de dados
-
+		
 		ClienteDML.gravarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), c);
 		
 //aqui adicionamos o novo cliente ao array do java, para excluir, imprimir, alterar, entre outras coisas
@@ -74,7 +74,7 @@ public class MenuCliente {
 		
 		Cliente c = ListaCliente.localizarCliente();
 		if (!(c == null)) {
-	
+		
 //só alterar caso o cliente localizado não seja nulo, via if else
 //ao alterar um cliente existente, não precisamos atualizar a lista java,
 //mas precisamos atualizar o banco de dados com o clienteDML
@@ -95,7 +95,7 @@ public class MenuCliente {
 //mesmo procedimento do alterar, com a diferença que o método 
 //excluircliente (que recebe o cliente localizado como parâmetro)
 //retorna um valor boolean que pode ser usado como condição do if else
-			
+		
 		}else{ System.out.println("Cliente não encontrado, retornando ao menu."); }
 		Util.aperteEnter();
 		return opcoes(menu());
@@ -104,7 +104,7 @@ public class MenuCliente {
 	public static int listar() {
 		
 // a listagem de clientes exibe todos os clientes que estão
-//atualmente salvos no array criado no início do aplicativo
+//atualmente salvos no array criado no início do aplicativo		
 		
 		Connect.clientes.imprimirClientes();
 		Util.aperteEnter();

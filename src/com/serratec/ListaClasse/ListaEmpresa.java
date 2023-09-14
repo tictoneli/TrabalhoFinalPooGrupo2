@@ -1,7 +1,6 @@
 package com.serratec.ListaClasse;
 
 import com.serratec.classes.Empresa;
-import com.serratec.classes.Produto;
 import com.serratec.conexao.Conexao;
 import com.serratec.dao.EmpresaDAO;
 import com.serratec.dml.EmpresaDML;
@@ -18,8 +17,8 @@ public class ListaEmpresa {
 	static ArrayList<Empresa> empresas = new ArrayList<>();
 
 	public ListaEmpresa(Conexao con, String schema) {
-		this.con = con;
-		this.schema = schema;
+		ListaEmpresa.con = con;
+		ListaEmpresa.schema = schema;
 		carregarListaEmpresas();
 	}
 

@@ -1,6 +1,5 @@
 package com.serratec.dao;
 
-import java.sql.Array;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ public class PedidoDAO {
 	PreparedStatement pInclusao;
 	PreparedStatement pAlteracao;
 	PreparedStatement pExclusao;
+	PreparedStatement pLocalizacao;
 
 	public PedidoDAO(Conexao conexao, String schema) {
 		this.conexao = conexao;
@@ -38,9 +38,9 @@ public class PedidoDAO {
 
 	private void prepararSqlInclusao() {
 		String sql = "insert into " + this.schema + ".pedido";
-		sql += " (codigo, datapedido, idcliente, idempresa, idproduto)";
+		sql += " (codigo, datapedido, idcliente, idempresa)";
 		sql += " values ";
-		sql += " (?, ?, ?, ?, ?)";
+		sql += " (?, ?, ?, ?)";
 
 		try {
 			this.pInclusao = conexao.getC().prepareStatement(sql);
@@ -56,7 +56,6 @@ public class PedidoDAO {
 		sql += " datapedido = ?,";
 		sql += " idcliente = ?,";
 		sql += " idempresa = ?,";
-		sql += " iditens = ?";
 		sql += " where idpedido = ?";
 
 		try {
@@ -73,7 +72,6 @@ public class PedidoDAO {
 			pAlteracao.setDate(2, Date.valueOf(pedido.getDtPedido()));
 			pAlteracao.setLong(3, pedido.getCliente().getIdCliente());
 			pAlteracao.setLong(4, pedido.getEmpresa().getIdEmpresa());
-			pAlteracao.setLong(5, pedido.getProdutos().getIdProdPedido());
 			pAlteracao.setLong(6, pedido.getIdPedido());
 
 			return pAlteracao.executeUpdate();
@@ -95,12 +93,27 @@ public class PedidoDAO {
 			pInclusao.setDate(2, Date.valueOf(pedido.getDtPedido()));
 			pInclusao.setLong(3, pedido.getCliente().getIdCliente());
 			pInclusao.setLong(4, pedido.getEmpresa().getIdEmpresa());
-			pInclusao.setLong(5, pedido.getProdutos().getIdProdPedido());
 
 			return pInclusao.executeUpdate();
 		} catch (Exception e) {
 			if (e.getLocalizedMessage().contains("is null")) {
 				System.err.println("\nPedido nao incluida.\nVerifique se foi chamado o conect:\n" + e);
+			} else {
+				System.err.println(e);
+				e.printStackTrace();
+			}
+			return 0;
+		}
+	}
+	
+	public int localizarPedido(Pedido pedido) {
+		try {
+			pLocalizacao.setLong(1, pedido.getIdPedido());
+
+			return pLocalizacao.executeUpdate();
+		} catch (Exception e) {
+			if (e.getLocalizedMessage().contains("is null")) {
+				System.err.println("\nPedido nao localizado.\nVerifique se foi chamado o conect:\n" + e);
 			} else {
 				System.err.println(e);
 				e.printStackTrace();
@@ -116,7 +129,7 @@ public class PedidoDAO {
 			return pExclusao.executeUpdate();
 		} catch (Exception e) {
 			if (e.getLocalizedMessage().contains("is null")) {
-				System.err.println("\nPedido nao incluida.\nVerifique se foi chamado o conect:\n" + e);
+				System.err.println("\nPedido nao excluido.\nVerifique se foi chamado o conect:\n" + e);
 			} else {
 				System.err.println(e);
 				e.printStackTrace();
@@ -133,7 +146,4 @@ public class PedidoDAO {
 
 		return tabela;
 	}
-
-	
-
 }

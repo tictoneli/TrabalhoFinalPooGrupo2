@@ -5,10 +5,10 @@ import com.serratec.conexao.Conexao;
 import com.serratec.dao.ClienteDAO;
 
 public class ClienteDML {
-
+	
 //classe dml só serve pra receber a conexão, o schema e chamar os
 //respectivos DAOs(consultas no sql)
-	
+
 	public static void gravarCliente(Conexao con, String schema, Cliente c) {
 
 		ClienteDAO cdao = new ClienteDAO(con, schema);

@@ -10,6 +10,7 @@ public class PedidoDML {
 
 		PedidoDAO pdao = new PedidoDAO(con, schema);
 		pdao.incluirPedido(p);
+
 	}
 
 	public static void alterarPedido(Conexao con, String schema, Pedido p) {

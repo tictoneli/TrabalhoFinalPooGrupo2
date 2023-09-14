@@ -6,10 +6,14 @@ import java.util.Scanner;
 import com.serratec.ListaClasse.ListaProduto;
 import com.serratec.constantes.Util;
 
-public class ProdutoPedido {
-	
+public class Prod_Pedido {
+
 	private long idProdPedido;
-	private ArrayList<Itens> produtosped = new ArrayList<>();
+	private static ArrayList<Itens> produtosped = new ArrayList<>();
+
+	public static ArrayList<Itens> getProdutosped() {
+		return produtosped;
+	}
 
 	public long getIdProdPedido() {
 		return idProdPedido;
@@ -19,17 +23,13 @@ public class ProdutoPedido {
 		this.idProdPedido = idProdPedido;
 	}
 
-	public ArrayList<Itens> getProdutosped() {
-		return produtosped;
-	}
-
-	public void setProdutosped(ArrayList<Itens> produtosped) {
-		this.produtosped = produtosped;
-	}
-
-	private class Itens extends Produto {
-
+	public class Itens extends Produto {
 		private int quantidade;
+
+		public Itens(long idProduto, long cdProduto, String nome, double valorVenda, int quantidade) {
+			super(idProduto, cdProduto, nome, valorVenda);
+			this.quantidade = quantidade;
+		}
 
 		public int getQuantidade() {
 			return quantidade;
@@ -47,8 +47,6 @@ public class ProdutoPedido {
 		String resposta;
 
 		do {
-			Itens itens = new Itens();
-
 			Util.escrever("Informe o código do produto:");
 
 			Produto produto = ListaProduto.localizarProduto();
@@ -58,16 +56,12 @@ public class ProdutoPedido {
 				int quantidade = in.nextInt();
 				in.nextLine();
 
-				itens.setIdProduto(produto.getIdProduto());
-				
-				itens.setQuantidade(quantidade);
-
-				produtosped.add(itens);
+				Itens item = new Itens(produto.getIdProduto(), produto.getCdProduto(), produto.getNome(), produto.getValorVenda(), quantidade);
+				produtosped.add(item);
 
 				Util.escrever("Produto adicionado com sucesso!");
 			} else {
 				Util.escrever("Produto não encontrado. Verifique o código informado.");
-
 			}
 
 			Util.escrever("Digite 'ENTER' para adicionar mais produtos, digite 's' para sair");
@@ -77,11 +71,27 @@ public class ProdutoPedido {
 		} while (continua);
 	}
 
-	
-	@Override
-	public String toString() {
-		return "ProdutoPedido [idProdPedido=" + idProdPedido + ", produtosped=" + produtosped + "]";
+	public static Produto localizarIdItem(long codigo) {
+
+		Itens item = null;
+		for (int i = 0; i < produtosped.size(); i++) {
+			if (produtosped.get(i).getIdProduto() == codigo) {
+				item = produtosped.get(i);
+				System.out.println(item.getIdProduto());
+				return item;
+			}
+		}
+		return null;
+
 	}
 
-	
+	public void imprimirItens() {
+
+		Util.escrever("codigo do produto \tnome \tvalor \tquant. \ttotal");
+		for (Itens i : produtosped) {
+			Produto produto = i;
+			System.out.println(produto.getCdProduto() + "\t" + produto.getNome() + "\t" + produto.getValorVenda() + "\t"
+					+ i.getQuantidade() + "\t" + (produto.getValorVenda() * i.getQuantidade()));
+		}
+	}
 }

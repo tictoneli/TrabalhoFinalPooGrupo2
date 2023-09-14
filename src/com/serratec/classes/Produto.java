@@ -15,6 +15,16 @@ public class Produto implements Calculos {
 	private double valorVenda;
 	private double porcento;
 
+	public Produto() {
+	}
+
+	public Produto(long idProduto, long cdProduto, String nome, double valorVenda) {
+		this.idProduto = idProduto;
+		this.cdProduto = cdProduto;
+		this.nome = nome;
+		this.valorVenda = valorVenda;
+	}
+
 	public long getIdProduto() {
 		return idProduto;
 	}
@@ -152,7 +162,7 @@ public class Produto implements Calculos {
 		if (descricao != null && !descricao.trim().isEmpty()) {
 			produtoExistente.setDescricao(descricao);
 		}
-		
+
 		Util.escrever("Alterar o valor unitário:");
 		num = in.nextLine();
 		if (!num.isEmpty()) {
@@ -171,7 +181,4 @@ public class Produto implements Calculos {
 
 		return produtoExistente;
 	}
-
-	
-	
 }

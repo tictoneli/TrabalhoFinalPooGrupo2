@@ -12,7 +12,6 @@ import com.serratec.dao.ClienteDAO;
 import com.serratec.dml.ClienteDML;
 
 public class ListaCliente {
-
 	private static Conexao con;
 	private static String schema;
 	
@@ -22,8 +21,8 @@ public class ListaCliente {
 		ListaCliente.con = con;
 		ListaCliente.schema = schema;
 		
-//ao criar um objeto ListaCliente novo, os dados do
-//banco de dados são carregados nele via carregarListaClientes()
+		//ao criar um objeto ListaCliente novo, os dados do
+		//banco de dados são carregados nele via carregarListaClientes()
 		
 		carregarListaClientes();
 	}
@@ -48,9 +47,9 @@ public class ListaCliente {
 		}
 	}
 	
-	public void carregarListaClientes() {
+	private void carregarListaClientes() {
 		ClienteDAO cdao = new ClienteDAO(con, schema);
-
+		
 //resultset é um tipo do java que guarda informações puxadas de uma query sql
 //nesse caso o cdao.carregarclientes faz um select de todos os clientes, o resultado desse
 //select é armazenado no novo resultset chamado tabela
@@ -96,7 +95,6 @@ public class ListaCliente {
 	public static Cliente localizarCliente() {
 		Cliente localizado = null;
 		String cpfcliente;
-		
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 			cpfcliente = input.nextLine();

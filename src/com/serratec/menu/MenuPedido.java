@@ -1,11 +1,17 @@
 package com.serratec.menu;
 
+import java.sql.ResultSet;
+
 import com.serratec.ListaClasse.ListaPedido;
+import com.serratec.ListaClasse.ListaProduto;
 import com.serratec.classes.Pedido;
-import com.serratec.classes.ProdutoPedido;
-import com.serratec.conexao.*;
+import com.serratec.classes.Prod_Pedido;
+import com.serratec.classes.Produto;
+import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
+import com.serratec.dao.PedidoDAO;
 import com.serratec.dml.PedidoDML;
+import com.serratec.dml.Prod_PedidoDML;
 
 public class MenuPedido {
 	public static int menu() {
@@ -27,10 +33,18 @@ public class MenuPedido {
 	public static int opcoes(int opcao) {
 
 		switch (opcao) {
-		case 1:	cadastrar(); break;
-		case 2:	alterar(); break;
-		case 3:	excluir(); break;
-		case 4:	listar(); break;
+		case 1:
+			cadastrar();
+			break;
+		case 2:
+			alterar();
+			break;
+		case 3:
+			excluir();
+			break;
+		case 4:
+			listar();
+			break;
 		case 5:
 			int opcaoMenuPrincipal = MenuPrincipal.menuPrincipal();
 			return MenuPrincipal.opcoes(opcaoMenuPrincipal);
@@ -45,19 +59,45 @@ public class MenuPedido {
 		return opcao;
 	}
 
+	
 	public static int cadastrar() {
-		
+
+		Produto prod = null;
 		Pedido p = Pedido.cadastrarPedido();
+		Connect.pedidos.adicionarPedidoLista(p);
+		Pedido l = null;
 		
-		if(!(p == null)) {
-			Connect.pedidos.adicionarPedidoLista(p);
-			//PedidoDML.gravarPedido(Connect.getCon(), Connect.dadosCon.getSchema(), p);
-		}else{
+		for (int i = 1; i <= ListaPedido.pedidos.size() ; i++) {
+			if(!(ListaPedido.localizarIdPedido(i) == null));{
+				l = ListaPedido.localizarIdPedido(i);
+				 
+			}
+		}
+		
+		//Pedido l = ListaPedido.localizarIdPedido(i);
+		
+		
+		for (int i = 0; i <= ListaProduto.produtos.size() ; i++) {
+			if(!(Prod_Pedido.localizarIdItem(i) == null));{
+				prod = Prod_Pedido.localizarIdItem(i);
+			}
+		}
+		
+		
+		//Produto prod = Prod_Pedido.localizarIdItem();
+		
+		PedidoDML.gravarPedido(Connect.getCon(), Connect.dadosCon.getSchema(), p);
+		
+		if (!(l == null)) {
+			Prod_PedidoDML.gravarPedido(Connect.getCon(), Connect.dadosCon.getSchema(), prod, l);
+		}
+		
+		if (p == null) {
 			System.err.println("Pedido não cadastrado! ");
-			Util.aperteEnter();
-			return opcoes(menu());}
+			return opcoes(menu());
+		}
 		Util.aperteEnter();
-		
+
 		return opcoes(menu());
 	}
 
@@ -72,9 +112,7 @@ public class MenuPedido {
 	}
 
 	public static int listar() {
-	
 		ListaPedido.imprimirPedido();
-		
 		Util.aperteEnter();
 		return opcoes(menu());
 	}

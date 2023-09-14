@@ -42,11 +42,6 @@ public abstract class Parceiro {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	@Override
-	public String toString() {
-		return "Parceiro [nome=" + nome + ", cpf_cnpj=" + cpf_cnpj + ", telefone=" + telefone + ", email=" + email
-				+ ", endereco=" + endereco + "]";
-	}
 	
 	
 }

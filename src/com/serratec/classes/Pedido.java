@@ -13,7 +13,7 @@ public class Pedido {
 	private long cdPedido;
 	private LocalDate dtPedido;
 	private Cliente cliente;
-	private ProdutoPedido produtos;
+	private Prod_Pedido produtos;
 	private Empresa empresa;
 
 	public long getIdPedido() {
@@ -48,11 +48,11 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public ProdutoPedido getProdutos() {
+	public Prod_Pedido getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(ProdutoPedido produtos) {
+	public void setProdutos(Prod_Pedido produtos) {
 		this.produtos = produtos;
 	}
 
@@ -83,41 +83,42 @@ public class Pedido {
 
 		Util.escrever("Informe o cpf do Cliente:");
 		Cliente cliente = ListaCliente.localizarCliente();
-			if(!(cliente == null)) {
-				p.setCliente(cliente);
-				}else { System.err.println("Cliente não encontrado! ");
-					return null;
-				}
-			
-		
+		if (!(cliente == null)) {
+			p.setCliente(cliente);
+		} else {
+			System.err.println("Cliente não encontrado! ");
+			return null;
+		}
 
 		Util.escrever("Informe o CNPJ da empresa responsável: ");
 		Empresa empresa = ListaEmpresa.localizarEmpresa();
-		if(!(empresa == null)) {
+		if (!(empresa == null)) {
 			p.setEmpresa(empresa);
-			}else { System.err.println("Empresa não encontrada! ");
-				return null;
-			}
+		} else {
+			System.err.println("Empresa não encontrada! ");
+			return null;
+			
+		}
 		
-		
-		ProdutoPedido pd = new ProdutoPedido();
-		
+		Prod_Pedido pd = new Prod_Pedido();
+
 		pd.AdicionarProdutos();
 		p.setProdutos(pd);
 //		System.out.println(p.getProdutos().getProdutos().toString());
-		
+
 		/*
-		p.produtos.AdicionarProdutos();
-		if(!(p.getProdutos().getProdutos() == null || p.getProdutos().getProdutos().isEmpty())) {
-			
-			}else {System.out.println("Carrinho vazio, por favor insira mais de um produto para criar o pedido!");
-			return null;
-			}
-		*/
-		
-		
+		 * p.produtos.AdicionarProdutos(); if(!(p.getProdutos().getProdutos() == null ||
+		 * p.getProdutos().getProdutos().isEmpty())) {
+		 * 
+		 * }else {System.out.
+		 * println("Carrinho vazio, por favor insira mais de um produto para criar o pedido!"
+		 * ); return null; }
+		 */
+		System.out.println(p.getIdPedido());
 		p.dtPedido = LocalDate.now();
 		
+		//p.idPedido++;
+
 		return p;
 	}
 }

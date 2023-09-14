@@ -3,7 +3,9 @@ package com.serratec.ListaClasse;
 import com.serratec.classes.Cliente;
 import com.serratec.classes.Empresa;
 import com.serratec.classes.Pedido;
-import com.serratec.classes.ProdutoPedido;
+import com.serratec.classes.Prod_Pedido;
+import com.serratec.classes.Produto;
+import com.serratec.classes.Prod_Pedido.Itens;
 import com.serratec.conexao.Conexao;
 import com.serratec.constantes.Util;
 import com.serratec.dao.PedidoDAO;
@@ -19,7 +21,7 @@ public class ListaPedido {
 	private Conexao con;
 	private String schema;
 
-	static ArrayList<Pedido> pedidos = new ArrayList<>();
+	public static ArrayList<Pedido> pedidos = new ArrayList<>();
 
 	public ListaPedido(Conexao con, String schema) {
 		this.con = con;
@@ -36,7 +38,7 @@ public class ListaPedido {
 			p.setDtPedido(LocalDate.parse(datapedido));
 			p.setCliente(new Cliente());
 			p.setEmpresa(new Empresa());
-			p.setProdutos(new ProdutoPedido());
+			p.setProdutos(new Prod_Pedido());
 			p.setIdPedido(tabela.getLong("idpedido"));
 			return p;
 		} catch (SQLException e) {
@@ -45,7 +47,7 @@ public class ListaPedido {
 		}
 	}
 
-	private void carregarListaPedidos() {
+	public void carregarListaPedidos() {
 		PedidoDAO pdao = new PedidoDAO(con, schema);
 		ResultSet tabela = pdao.carregarPedido();
 		ListaPedido.pedidos.clear();
@@ -61,19 +63,19 @@ public class ListaPedido {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void adicionarPedidoLista(Pedido ped) {
 		ListaPedido.pedidos.add(ped);
 	}
-	
+
 	public static Pedido localizarPedido() {
 		Pedido localizado = null;
 		Long ped;
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		ped = input.nextLong();
-		
-		for(Pedido p : pedidos) {
+
+		for (Pedido p : pedidos) {
 			if (p.getCdPedido() == ped) {
 				localizado = p;
 				break;
@@ -82,6 +84,21 @@ public class ListaPedido {
 		return localizado;
 	}
 	
+	public static Pedido localizarIdPedido(long codigo) {
+
+		Pedido p = null;
+		for (int i = 0; i < pedidos.size(); i++) {
+			if (pedidos.get(i).getIdPedido() == codigo) {
+				p = pedidos.get(i);
+				System.out.println(p.getIdPedido());
+				return p;
+			}
+		}
+		return null;
+
+	}
+
+
 	public boolean excluirPedido(Pedido pExcluir) {
 		boolean excluido = false;
 		for (Pedido p : pedidos) {
@@ -94,16 +111,20 @@ public class ListaPedido {
 		}
 		return excluido;
 	}
-	
-	public static void imprimirPedido() {
 
+	public static void imprimirPedido() {
 		System.out.println(Util.LINHAD);
 		Util.escrever("Relatório de Pedidos:");
 		System.out.println(Util.LINHA);
-		Util.escrever("Número\t | Data\t\t| Cliente\t\t| Empresa\t| Lista Produtos");
-		
+		Util.escrever("Número\t | Data\t\t| Cliente\t\t| Empresa");
+
 		for (Pedido p : pedidos) {
-			System.out.println(p.getCdPedido() + "\t\t" + p.getDtPedido() + "\t\t" + p.getCliente().getNome() + p.getEmpresa().getNome() + p.getProdutos());
-		}//varrer itens print produtos?					
+			System.out.print(p.getCdPedido() + "\t\t" + p.getDtPedido() + "\t\t" + p.getCliente().getNome() + "\t\t"
+					+ p.getEmpresa().getNome() + "\t| ");
+		}
+		Util.escrever("Lista Produtos");
+		for (Pedido p : pedidos) {
+			p.getProdutos().imprimirItens();
+		}
 	}
 }
