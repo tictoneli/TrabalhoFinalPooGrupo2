@@ -194,7 +194,7 @@ public class CreateDAO {
 
 		if (entidadeExists(con, schema, entidade)) {
 			criarCampo(con, schema, entidade, "idpedido", "serial", true, false, null, null);
-			criarCampo(con, schema, entidade, "codigo", "varchar(10)", false, false, null, null);
+			criarCampo(con, schema, entidade, "codigo", "bigint UNIQUE NOT NULL", false, false, null, null);
 			criarCampo(con, schema, entidade, "datapedido", "date", false, false, null, null);
 			criarCampo(con, schema, entidade, "idcliente", "integer", false, true, "cliente", "idcliente");
 			criarCampo(con, schema, entidade, "idempresa", "integer", false, true, "empresa", "idempresa");
@@ -270,8 +270,97 @@ public class CreateDAO {
 			System.err.println(e);
 			e.printStackTrace();
 		}
-
+		
 		return atributoExist;
 	}
+	
+	public static  void alimentaTabelaProduto(Conexao con, String schema) {
+		 
+		try {
+	        con.conect(); 
 
+	        String sql =  "insert into "+ schema +".produto\n"
+	    			+ "(nome,cdproduto,descricao,valorunit,porcento,valorvenda)\n"
+	    			+ "values\n"
+	    			+ "('caderno',1,'cheio de papel',25.5,2,26.0),\n"
+	    			+ "('caneta',2,'cheio de tinta',3,10,3.3),\n"
+	    			+ "('estojo',3,'cheio de espaço',10,2,12),\n"
+	    			+ "('garrafa',4,'cheio de agua',5,0,5),\n"
+	    			+ "('livro',5,'cheio de historia',50,5,52.5),\n"
+	    			+ "('ssd',6,'cheio de memoria',100,2,102)";
+	        
+
+	        int idGerado = con.executeInsert(sql);
+
+	        if (idGerado != -1) {
+	            System.out.println("Inserção bem-sucedida. ID gerado: " + idGerado);
+	        } else {
+	            System.out.println("Erro ao inserir dados.");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        con.disconect(); 
+	    }
+
+
+		
+	}
+			
+	public static  void alimentaTabelaEmpresa(Conexao con, String schema) {
+		 
+		try {
+	        con.conect(); //
+
+	        String sql =  "insert into " + schema + ".empresa\n" +
+	                "(nome, cnpj, telefone, email, endereco)\n" +
+	                "VALUES\n" +
+	                "('empresaX', '1', '564654', 'empresax@agencia', 'rua y loja 30'),\n" +
+	                "('empresay', '2', '564444654', 'empresay@agencia', 'rua x loja 38');";
+	        
+
+	        int idGerado = con.executeInsert(sql);
+
+	        if (idGerado != -1) {
+	            System.out.println("Inserção bem-sucedida. ID gerado: " + idGerado);
+	        } else {
+	            System.out.println("Erro ao inserir dados.");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        con.disconect(); 
+	    }
+
+
+		
+	}
+
+	public static void alimentaTabelaCliente(Conexao con, String schema) {
+		
+		try {
+	        con.conect();
+
+	        String sql = "\n"
+	                + "insert into " + schema + ".cliente\n"
+	                + "(nome , cpf, telefone, email, endereco, dtnasc)\n"
+	                + "values\n"
+	                + "('Joaquim', '1','24787845','joaquim@joaquim','rua b casa10','1985-02-02'),\n"
+	                + "('moises', '2','24787845','moises@joaquim','rua c casa15','1985-02-02'),\n"
+	                + "('joao', '3','24787845','joao@joaquim','rua d casa10','1985-02-02');\n";
+
+	        int idGerado = con.executeInsert(sql);
+
+	        if (idGerado != -1) {
+	            System.out.println("Inserção bem-sucedida. ID gerado: " + idGerado);
+	        } else {
+	            System.out.println("Erro ao inserir dados.");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        con.disconect(); 
+	    }
+
+	}
 }

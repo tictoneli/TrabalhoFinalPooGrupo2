@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import com.serratec.classes.Produto;
 import com.serratec.conexao.Conexao;
-import com.serratec.constantes.Util;
 import com.serratec.dao.ProdutoDAO;
 import com.serratec.dml.ProdutoDML;
 
@@ -84,6 +83,30 @@ public class ListaProduto {
 		return localizado;
 	}
 
+	public static Produto localizarProdutoId(Long id) {
+		Produto localizado = null;
+
+		for (Produto p : produtos) {
+			if (p.getIdProduto() == id) {
+				localizado = p;
+				break;
+			}
+		}
+		return localizado;
+	}
+
+	public static Produto localizarProdutoCod(int i) {
+		Produto localizado = null;
+
+		for (Produto p : produtos) {
+			if (p.getCdProduto() == i) {
+				localizado = p;
+				break;
+			}
+		}
+		return localizado;
+	}
+
 	public boolean excluirProduto(Produto prodExcluir) {
 
 		boolean excluido = false;
@@ -100,14 +123,21 @@ public class ListaProduto {
 
 	public static void imprimirProdutos() {
 
-		System.out.println(Util.LINHAD);
-		Util.escrever("Relatório de Produtos:");
-		System.out.println(Util.LINHA);
-		Util.escrever("Código\t | Nome\t\t| descrição| vl. Unit.\t\t| Porc. de Lucro\t| vl. Venda");
-
+		System.out.println("==================");
+		System.out.println("LISTA DE PRODUTOS:");
+		System.out.println("==================");
+		System.out.print(
+				"-------------------------------------------------------------------------------------------------------");
+		System.out.println("\nCODIGO\t| NOME\t\t| DESCRICAO\t\t| VL. UNIT\t| PORC. DE LUCRO\t| VL. VENDA");
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------");
 		for (Produto p : produtos) {
-			System.out.println(p.getCdProduto() + "\t\t" + p.getNome() + " " + p.getDescricao() + "\t\t"
-					+ p.getValorUnit() + "\t\t" + p.getPorcento() + "\t\t" + p.getValorVenda());
+			String formatarTamanho = String.format("%-7s | %-13s | %-21s | %-13s | %-21s | %2s", p.getCdProduto(),
+					p.getNome(), p.getDescricao(), p.getValorUnit(), p.getPorcento(), p.getValorVenda());
+			System.out.println(formatarTamanho);
 		}
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------");
 	}
+
 }

@@ -4,6 +4,7 @@ import com.serratec.classes.Cliente;
 import com.serratec.classes.Empresa;
 import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
+import com.serratec.dao.ClienteDAO;
 import com.serratec.dml.ClienteDML;
 import com.serratec.dml.EmpresaDML;
 
@@ -55,6 +56,7 @@ public class MenuCliente {
 //método gravarcliente chama o clienteDAO, que escreve esse novo cliente em um query pro banco de dados
 		
 		ClienteDML.gravarCliente(Connect.getCon(), Connect.dadosCon.getSchema(), c);
+		c.setIdCliente(ClienteDAO.retornarIdCliente(Connect.dadosCon.getSchema()));
 		
 //aqui adicionamos o novo cliente ao array do java, para excluir, imprimir, alterar, entre outras coisas
 //puxamos os array criados na classe connect, pois é onde criamos esses arrays ao abrir o nosso aplicativo
@@ -106,7 +108,13 @@ public class MenuCliente {
 // a listagem de clientes exibe todos os clientes que estão
 //atualmente salvos no array criado no início do aplicativo		
 		
+		@SuppressWarnings("unused")
+		Scanner in = new Scanner(System.in);
 		Connect.clientes.imprimirClientes();
+	
+		ClienteDAO clienteDAO = new ClienteDAO(Connect.getCon(), Connect.dadosCon.getSchema());
+		clienteDAO.exibirClientesPedidos();
+
 		Util.aperteEnter();
 		return opcoes(menu());
 		

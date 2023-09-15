@@ -8,6 +8,7 @@ import com.serratec.classes.Cliente;
 import com.serratec.classes.Produto;
 import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
+import com.serratec.dao.ProdutoDAO;
 import com.serratec.dml.ProdutoDML;
 
 public class MenuProduto {
@@ -54,6 +55,8 @@ public class MenuProduto {
 		
 		Produto produto = Produto.cadastrarProduto();
 		ProdutoDML.gravarProduto(Connect.getCon(), Connect.dadosCon.getSchema(), produto);
+		produto.setIdProduto(ProdutoDAO.retornarIdProduto(Connect.dadosCon.getSchema()));
+		
 		Connect.produtos.adicionarProdutoLista(produto);
 		opcoes(menu());
 	}
@@ -87,7 +90,14 @@ public class MenuProduto {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		ListaProduto.imprimirProdutos();
+		
+		ProdutoDAO produtoDAO = new ProdutoDAO(Connect.getCon(), Connect.dadosCon.getSchema());
+		produtoDAO.exibirProdutosPedidos();
+
+		
 		Util.aperteEnter();
 		return opcoes(menu());
 	}
+
+	
 }

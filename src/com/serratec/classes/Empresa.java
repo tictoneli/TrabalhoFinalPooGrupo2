@@ -2,7 +2,9 @@ package com.serratec.classes;
 
 import java.util.Scanner;
 
+import com.serratec.ListaClasse.ListaEmpresa;
 import com.serratec.constantes.Util;
+import com.serratec.menu.MenuEmpresa;
 
 public class Empresa extends Parceiro {
 
@@ -29,13 +31,20 @@ public class Empresa extends Parceiro {
 
 		Util.br();
 
-		System.out.println("Informe o nome da empresa:");
-		String s = in.nextLine();
-		e.setNome(s);
-
 		System.out.println("Informe o CNPJ da empresa:");
+		String s = in.nextLine();
+		if (ListaEmpresa.localizarEmpresaCNPJ(s) == null) {
+			e.setCpf_cnpj(s);
+		} else {
+			System.out.println("Empresa já cadastrada");
+			Util.aperteEnter();
+			int opcaoMenuEmpresa = MenuEmpresa.menu();
+			MenuEmpresa.opcoes(opcaoMenuEmpresa);
+		}
+
+		System.out.println("Informe o nome da empresa:");
 		s = in.nextLine();
-		e.setCpf_cnpj(s);
+		e.setNome(s);
 
 		System.out.println("Informe o endereço da empresa: ");
 		s = in.nextLine();
@@ -56,43 +65,50 @@ public class Empresa extends Parceiro {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 
-
 		System.out.println(Util.LINHA);
-		Util.escrever("Alteração de empresa: ");
+		Util.escrever("Alteração de empresa: " + e.getCpf_cnpj());
 		System.out.println(Util.LINHA);
 
 		Util.br();
 
-		Util.escrever("Alterar o nome ou pressione ENTER para manter original: ");
-		String nome = in.nextLine();
-			if (nome != null && !nome.trim().isEmpty()) {
-				e.setNome(nome);
-			}
-
-		Util.escrever("Alterar o CPF ou pressione ENTER para manter original::");
+		Util.escrever("Alterar o CNPJ ou pressione ENTER para manter original:");
 		String cnpj = in.nextLine();
+		if (ListaEmpresa.localizarEmpresaCNPJ(cnpj) == null) {
 			if (cnpj != null && !cnpj.trim().isEmpty()) {
 				e.setCpf_cnpj(cnpj);
 			}
+		} else {
+			System.out.println("Empresa com o CNPJ " + cnpj + " já cadastrada!\nVerifique se o CNPJ digitado está correto");
+			Util.aperteEnter();
+			int opcao = MenuEmpresa.menu();
+			MenuEmpresa.opcoes(opcao);
+		}
+
+		Util.escrever("Alterar o nome ou pressione ENTER para manter original: ");
+		String nome = in.nextLine();
+		if (nome != null && !nome.trim().isEmpty()) {
+			e.setNome(nome);
+		}
 
 		Util.escrever("Alterar o telefone ou pressione ENTER para manter original::");
 		String tel = in.nextLine();
-			if (tel != null && !tel.trim().isEmpty()) {
-				e.setTelefone(tel);
-			}
+		if (tel != null && !tel.trim().isEmpty()) {
+			e.setTelefone(tel);
+		}
 
 		Util.escrever("Alterar o email ou pressione ENTER para manter original::");
 		String email = in.nextLine();
-			if (email != null && !email.trim().isEmpty()) {
-				e.setEmail(email);
-			}
-		
+		if (email != null && !email.trim().isEmpty()) {
+			e.setEmail(email);
+		}
+
 		Util.escrever("Alterar o endereço ou pressione ENTER para manter original::");
 		String end = in.nextLine();
-			if (end != null && !end.trim().isEmpty()) {
-				e.setEndereco(end);
-			}
-		
+		if (end != null && !end.trim().isEmpty()) {
+			e.setEndereco(end);
+		}
+
 		return e;
 	}
+	
 }

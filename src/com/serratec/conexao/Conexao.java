@@ -2,6 +2,7 @@ package com.serratec.conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -124,4 +125,21 @@ public class Conexao {
 	public void setDriverjdbc(String driverjdbc) {
 		this.driverjdbc = driverjdbc;
 	}
+	public int executeInsert(String query) {
+        try {
+            PreparedStatement statement = getC().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1); 
+                }
+            }
+            return -1; 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return -1; 
+        }
+    }
+	
 }

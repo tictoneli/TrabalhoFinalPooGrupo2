@@ -42,9 +42,11 @@ public class Connect {
 				
 				clientes = new ListaCliente(getCon(), dadosCon.getSchema());
 				empresas = new ListaEmpresa(getCon(), dadosCon.getSchema());
-				pedidos = new ListaPedido(getCon(), dadosCon.getSchema());
 				produtos = new ListaProduto(getCon(), dadosCon.getSchema());
-
+				pedidos = new ListaPedido(getCon(), dadosCon.getSchema());
+				
+				
+				
 				MenuPrincipal.opcoes(MenuPrincipal.menuPrincipal());
 
 			} else {

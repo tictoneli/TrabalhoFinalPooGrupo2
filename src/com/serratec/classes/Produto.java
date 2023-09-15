@@ -2,8 +2,10 @@ package com.serratec.classes;
 
 import java.util.Scanner;
 
+import com.serratec.ListaClasse.ListaProduto;
 import com.serratec.calculos.Calculos;
 import com.serratec.constantes.Util;
+import com.serratec.menu.MenuProduto;
 
 public class Produto implements Calculos {
 
@@ -83,6 +85,14 @@ public class Produto implements Calculos {
 
 	}
 
+	public static int localizarProduto() {
+
+		System.out.println(Util.LINHA);
+		System.out.println("Alteração de produto");
+		System.out.println(Util.LINHA);
+		return Util.validarInteiro("Informe o código do produto:");
+	}
+
 	public static Produto cadastrarProduto() {
 
 		Produto p = new Produto();
@@ -96,14 +106,21 @@ public class Produto implements Calculos {
 
 		Util.br();
 
-		Util.escrever("Informe o nome:");
-		String s = in.nextLine();
-		p.setNome(s);
-
 		Util.escrever("Informe o código:");
 		int i = in.nextInt();
 		in.nextLine();
-		p.setCdProduto(i);
+		if (ListaProduto.localizarProdutoCod(i) == null) {
+			p.setCdProduto(i);
+		} else {
+			System.out.println("Produto já cadastrado");
+			Util.aperteEnter();
+			i = MenuProduto.menu();
+			MenuProduto.opcoes(i);
+		}
+
+		Util.escrever("Informe o nome:");
+		String s = in.nextLine();
+		p.setNome(s);
 
 		Util.escrever("Informe a descrição: ");
 		s = in.nextLine();
@@ -124,14 +141,6 @@ public class Produto implements Calculos {
 		return p;
 	}
 
-	public static int localizarProduto() {
-
-		System.out.println(Util.LINHA);
-		System.out.println("Alteração de produto");
-		System.out.println(Util.LINHA);
-		return Util.validarInteiro("Informe o código do produto:");
-	}
-
 	public static Produto alterarProduto(Produto produtoExistente) {
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
@@ -139,38 +148,46 @@ public class Produto implements Calculos {
 		Double valor = 0.0;
 
 		System.out.println(Util.LINHA);
-		Util.escrever("Alteração de produto: ");
+		Util.escrever("Alteração de produto: " + produtoExistente.nome);
 		System.out.println(Util.LINHA);
 
 		Util.br();
 
-		Util.escrever("Alterar o nome:");
+		Util.escrever("Alterar o codigo do produto ou pressione ENTER para manter original:");
+		String num = in.nextLine();
+		int codigo = Integer.parseInt(num);
+		if (ListaProduto.localizarProdutoCod(codigo) == null) {
+			if (!num.isEmpty()) {
+				produtoExistente.setCdProduto(codigo);
+			}
+		} else {
+			System.out.println("Produto com o codigo " + codigo + " já cadastrado!"
+								+ "\nVerifique se o codigo digitado está correto");
+			Util.aperteEnter();
+			codigo = MenuProduto.menu();
+			MenuProduto.opcoes(codigo);
+		}
+
+		Util.escrever("Alterar o nome ou pressione ENTER para manter original:");
 		String nome = in.nextLine();
 		if (nome != null && !nome.trim().isEmpty()) {
 			produtoExistente.setNome(nome);
 		}
 
-		Util.escrever("Alterar o codigo do produto:");
-		String num = in.nextLine();
-		if (!num.isEmpty()) {
-			long codigo = Integer.parseInt(num);
-			produtoExistente.setCdProduto(codigo);
-		}
-
-		Util.escrever("Alterar a descrição:");
+		Util.escrever("Alterar a descrição ou pressione ENTER para manter original:");
 		String descricao = in.nextLine();
 		if (descricao != null && !descricao.trim().isEmpty()) {
 			produtoExistente.setDescricao(descricao);
 		}
 
-		Util.escrever("Alterar o valor unitário:");
+		Util.escrever("Alterar o valor unitário ou pressione ENTER para manter original:");
 		num = in.nextLine();
 		if (!num.isEmpty()) {
 			double valorUnit = Double.parseDouble(num);
 			produtoExistente.setValorUnit(valorUnit);
 		}
 
-		Util.escrever("Alterar a porcentagem de lucro:");
+		Util.escrever("Alterar a porcentagem de lucro ou pressione ENTER para manter original:");
 		num = in.nextLine();
 		if (!num.isEmpty()) {
 			double porcento = Double.parseDouble(num);
@@ -181,4 +198,5 @@ public class Produto implements Calculos {
 
 		return produtoExistente;
 	}
+
 }

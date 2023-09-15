@@ -1,7 +1,11 @@
 package com.serratec.dml;
 
+import java.sql.ResultSet;
+
+import com.serratec.classes.Cliente;
 import com.serratec.classes.Pedido;
 import com.serratec.conexao.Conexao;
+import com.serratec.dao.ClienteDAO;
 import com.serratec.dao.PedidoDAO;
 
 public class PedidoDML {
@@ -23,5 +27,12 @@ public class PedidoDML {
 
 		PedidoDAO pdao = new PedidoDAO(con, schema);
 		pdao.excluirPedido(p);
+	}
+	
+	public static void selecionarPedido(Conexao con, String schema, Pedido p) {
+
+		PedidoDAO pdao = new PedidoDAO(con, schema);
+
+		pdao.selecionarPedido(p);
 	}
 }

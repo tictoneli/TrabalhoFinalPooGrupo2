@@ -2,9 +2,12 @@ package com.serratec.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
 
 import com.serratec.classes.Produto;
 import com.serratec.conexao.Conexao;
+import com.serratec.conexao.Connect;
 
 public class ProdutoDAO {
 	private Conexao conexao;
@@ -133,4 +136,53 @@ public class ProdutoDAO {
 
 		return tabela;
 	}
+
+	public static int retornarIdProduto(String schema) {
+		String sql = "select idproduto from " + schema + ".produto" + " order by idproduto desc limit 1";
+
+		try {
+			ResultSet tabela = Connect.con.query(sql);
+			if (tabela.next()) {
+				return tabela.getInt("idproduto");
+			} else {
+				return 0;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	public void exibirProdutosPedidos() {
+		Produto p = new Produto();
+		@SuppressWarnings("resource")
+		Scanner input = new Scanner(System.in);
+		System.out.println("Informe o codigo do produto :");
+		p.setCdProduto(input.nextLong());
+		ResultSet tabela;
+		String sql ="Select  * from " + this.schema+".produto_pedido pt\n"
+				+ "\n"
+				+ "\n"
+				+ "join "+this.schema + ".pedido pd on pt.idpedido = pd.idpedido\n"
+				+ "join "+this.schema+".produto pp on pt.idproduto = pp.idproduto\n"
+				+ "join "+this.schema+".empresa emp on emp.idempresa = pd.idempresa\n"
+				+ "where pt.idproduto = " + p.getCdProduto() ;
+		tabela = conexao.query(sql);
+	    
+	    try {
+	        
+	        while (tabela.next()) {
+	           
+	            int idProduto = tabela.getInt("idProduto");
+	            String nomeProduto = tabela.getString("nome");
+	            int pedidos = tabela.getInt("codigo");
+
+	            System.out.println("Codigo dos Pedidos que possui o produto: " + pedidos);
+	           
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 }

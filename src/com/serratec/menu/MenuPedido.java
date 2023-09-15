@@ -1,15 +1,11 @@
 package com.serratec.menu;
 
-import java.sql.ResultSet;
-
 import com.serratec.ListaClasse.ListaPedido;
-import com.serratec.ListaClasse.ListaProduto;
 import com.serratec.classes.Pedido;
-import com.serratec.classes.Prod_Pedido;
-import com.serratec.classes.Produto;
 import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
 import com.serratec.dao.PedidoDAO;
+import com.serratec.dao.Prod_PedidoDAO;
 import com.serratec.dml.PedidoDML;
 import com.serratec.dml.Prod_PedidoDML;
 
@@ -59,60 +55,76 @@ public class MenuPedido {
 		return opcao;
 	}
 
-	
 	public static int cadastrar() {
 
-		Produto prod = null;
 		Pedido p = Pedido.cadastrarPedido();
+
+		try {
+			PedidoDML.gravarPedido(Connect.getCon(), Connect.dadosCon.getSchema(), p);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		p.setIdPedido(PedidoDAO.retornarIdPedido(Connect.dadosCon.getSchema()));
 		Connect.pedidos.adicionarPedidoLista(p);
-		Pedido l = null;
-		
-		for (int i = 1; i <= ListaPedido.pedidos.size() ; i++) {
-			if(!(ListaPedido.localizarIdPedido(i) == null));{
-				l = ListaPedido.localizarIdPedido(i);
-				 
-			}
+
+		if (!(p == null)) {
+			Prod_PedidoDML.gravarProdutoPedido(Connect.getCon(), Connect.dadosCon.getSchema(), p);
 		}
-		
-		//Pedido l = ListaPedido.localizarIdPedido(i);
-		
-		
-		for (int i = 0; i <= ListaProduto.produtos.size() ; i++) {
-			if(!(Prod_Pedido.localizarIdItem(i) == null));{
-				prod = Prod_Pedido.localizarIdItem(i);
-			}
-		}
-		
-		
-		//Produto prod = Prod_Pedido.localizarIdItem();
-		
-		PedidoDML.gravarPedido(Connect.getCon(), Connect.dadosCon.getSchema(), p);
-		
-		if (!(l == null)) {
-			Prod_PedidoDML.gravarPedido(Connect.getCon(), Connect.dadosCon.getSchema(), prod, l);
-		}
-		
-		if (p == null) {
-			System.err.println("Pedido não cadastrado! ");
-			return opcoes(menu());
-		}
+
 		Util.aperteEnter();
 
 		return opcoes(menu());
 	}
 
 	public static int alterar() {
-		Util.aperteEnter();
+
+		System.out.println("Insira o CODIGO do pedido a ser alterado: ");
+
+		Pedido p = ListaPedido.localizarPedido();
+		if (!(p == null)) {
+
+			String formatarTamanho = String.format("%-7s | %-13s | %-13s | %-5s", p.getCdPedido(), p.getDtPedido(),
+					p.getCliente().getNome(), p.getEmpresa().getNome());
+			Util.escrever("\nPEDIDO SELECIONADO: \n");
+			Util.escrever("\nID \t| DATA \t\t |CLIENTE \t| EMPRESA: \n");
+			System.out.println(formatarTamanho);
+
+			//Pedido.alterarPedido(p);
+
+	        Prod_PedidoDAO.carregarProd_Pedido(p);
+	        Prod_PedidoDAO prod_PedidoDAO = new Prod_PedidoDAO(Connect.getCon(), Connect.dadosCon.getSchema());
+	        prod_PedidoDAO.alterarProd_Pedido();
+			
+			
+			Util.aperteEnter();
+			return opcoes(menu());
+
+		}
 		return opcoes(menu());
 	}
 
 	public static int excluir() {
+		System.out.println("digite o codigo do pedido: ");
+
+		Pedido p = ListaPedido.localizarPedido();
+
+		Connect.pedidos.excluirPedido(p);
+
+		Prod_PedidoDML.excluirProd_Pedido(Connect.con, Connect.dadosCon.getSchema(), p);
+		PedidoDML.excluirPedido(Connect.con, Connect.dadosCon.getSchema(), p);
+
 		Util.aperteEnter();
 		return opcoes(menu());
 	}
 
 	public static int listar() {
 		ListaPedido.imprimirPedido();
+		PedidoDAO pedidoDAO = new PedidoDAO(Connect.getCon(), Connect.dadosCon.getSchema());
+		pedidoDAO.exibirPedidosCodigo();
+
+		
+		
 		Util.aperteEnter();
 		return opcoes(menu());
 	}

@@ -6,6 +6,7 @@ import com.serratec.ListaClasse.ListaEmpresa;
 import com.serratec.classes.Empresa;
 import com.serratec.conexao.Connect;
 import com.serratec.constantes.Util;
+import com.serratec.dao.EmpresaDAO;
 import com.serratec.dml.EmpresaDML;
 
 public class MenuEmpresa {
@@ -60,6 +61,8 @@ public class MenuEmpresa {
 		Empresa e = Empresa.cadastrarEmpresa();
 
 		EmpresaDML.gravarEmpresa(Connect.getCon(), Connect.dadosCon.getSchema(), e);
+		e.setIdEmpresa(EmpresaDAO.retornarIdEmpresa(Connect.dadosCon.getSchema()));
+		
 		Connect.empresas.adicionarEmpresaLista(e);
 		return opcoes(menu());
 	}

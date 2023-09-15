@@ -2,9 +2,11 @@ package com.serratec.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.serratec.classes.Empresa;
 import com.serratec.conexao.Conexao;
+import com.serratec.conexao.Connect;
 
 public class EmpresaDAO {
 	private Conexao conexao;
@@ -130,5 +132,22 @@ public class EmpresaDAO {
 		tabela = conexao.query(sql);
 
 		return tabela;
+	}
+
+	public static int retornarIdEmpresa(String schema) {
+		String sql = "select idempresa from " + schema + ".empresa" + " order by idempresa desc limit 1";
+
+		try {
+			ResultSet tabela = Connect.con.query(sql);
+			if (tabela.next()) {
+				return tabela.getInt("idempresa");
+			} else {
+				return 0;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }
